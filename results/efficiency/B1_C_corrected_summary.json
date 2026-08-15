@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "purpose": "P1-C1 audit fix: corrected throughput/MFU for B1 & C rounds (paper 1)",
+    "method": "final cumulative TRL num_tokens / total wall time (docs/18(g) corrected caliber)",
+    "note": "original efficiency_report.json untouched (traceability rule)",
+    "n_params": 3086000000.0,
+    "peak_practical_tflops": 101.53,
+    "relative_check": {
+      "unsloth_bf16_corr": "129.4±2.6 (n=3)",
+      "hf_bf16_corr": "123.1±0.8 (n=3)",
+      "unsloth_4bit_corr": "76.8±0.0 (n=1)",
+      "speedup_u_vs_hf_pct": 5.2,
+      "penalty_4bit_vs_ubf16_pct": -40.7
+    }
+  },
+  "B1": {
+    "B1_hf_bf16_100steps_seed123": {
+      "tokens_per_s_buggy": 1287.2,
+      "tokens_per_s_corrected": 122.2,
+      "overcount_factor": 10.53,
+      "mfu_practical_pct_buggy": 23.47,
+      "mfu_practical_pct_corrected": 2.23,
+      "mfu_theoretical_pct_corrected": 1.84,
+      "final_cumulative_tokens": 355255.0,
+      "total_time_s": 2906.01,
+      "peak_mem_gb": 7.99,
+      "steps": 20
+    },
+    "B1_hf_bf16_100steps_seed42": {
+      "tokens_per_s_buggy": 1305.5,
+      "tokens_per_s_corrected": 123.4,
+      "overcount_factor": 10.58,
+      "mfu_practical_pct_buggy": 23.81,
+      "mfu_practical_pct_corrected": 2.25,
+      "mfu_theoretical_pct_corrected": 1.86,
+      "final_cumulative_tokens": 357580.0,
+      "total_time_s": 2898.42,
+      "peak_mem_gb": 7.98,
+      "steps": 20
+    },
+    "B1_hf_bf16_100steps_seed7": {
+      "tokens_per_s_buggy": 1289.5,
+      "tokens_per_s_corrected": 123.6,
+      "overcount_factor": 10.44,
+      "mfu_practical_pct_buggy": 23.51,
+      "mfu_practical_pct_corrected": 2.25,
+      "mfu_theoretical_pct_corrected": 1.86,
+      "final_cumulative_tokens": 354693.0,
+      "total_time_s": 2870.44,
+      "peak_mem_gb": 7.99,
+      "steps": 20
+    },
+    "B1_unsloth_4bit_100steps_seed42": {
+      "tokens_per_s_buggy": 809.4,
+      "tokens_per_s_corrected": 76.8,
+      "overcount_factor": 10.54,
+      "mfu_practical_pct_buggy": 14.76,
+      "mfu_practical_pct_corrected": 1.4,
+      "mfu_theoretical_pct_corrected": 1.16,
+      "final_cumulative_tokens": 349886.0,
+      "total_time_s": 4556.81,
+      "peak_mem_gb": 10.17,
+      "steps": 20
+    },
+    "B1_unsloth_bf16_100steps_seed123": {
+      "tokens_per_s_buggy": 1365.2,
+      "tokens_per_s_corrected": 130.6,
+      "overcount_factor": 10.45,
+      "mfu_practical_pct_buggy": 24.9,
+      "mfu_practical_pct_corrected": 2.38,
+      "mfu_theoretical_pct_corrected": 1.97,
+      "final_cumulative_tokens": 360517.0,
+      "total_time_s": 2760.6,
+      "peak_mem_gb": 13.92,
+      "steps": 20
+    },
+    "B1_unsloth_bf16_100steps_seed42": {
+      "tokens_per_s_buggy": 1334.4,
+      "tokens_per_s_corrected": 126.5,
+      "overcount_factor": 10.55,
+      "mfu_practical_pct_buggy": 24.33,
+      "mfu_practical_pct_corrected": 2.31,
+      "mfu_theoretical_pct_corrected": 1.91,
+      "final_cumulative_tokens": 355482.0,
+      "total_time_s": 2810.65,
+      "peak_mem_gb": 13.91,
+      "steps": 20
+    },
+    "B1_unsloth_bf16_100steps_seed7": {
+      "tokens_per_s_buggy": 1372.6,
+      "tokens_per_s_corrected": 131.2,
+      "overcount_factor": 10.46,
+      "mfu_practical_pct_buggy": 25.03,
+      "mfu_practical_pct_corrected": 2.39,
+      "mfu_theoretical_pct_corrected": 1.98,
+      "final_cumulative_tokens": 350575.0,
+      "total_time_s": 2671.06,
+      "peak_mem_gb": 13.91,
+      "steps": 20
+    }
+  },
+  "C": {
+    "C_G2_b1x8_ckpt_256": {
+      "tokens_per_s_buggy": 951.1,
+      "tokens_per_s_corrected": 172.4,
+      "overcount_factor": 5.52,
+      "mfu_practical_pct_buggy": 17.34,
+      "mfu_practical_pct_corrected": 3.14,
+      "mfu_theoretical_pct_corrected": 2.6,
+      "final_cumulative_tokens": 142054.0,
+      "total_time_s": 824.02,
+      "peak_mem_gb": 12.08,
+      "steps": 10
+    },
+    "C_G2_b1x8_ckpt_512": {
+      "tokens_per_s_buggy": 690.6,
+      "tokens_per_s_corrected": 124.5,
+      "overcount_factor": 5.55,
+      "mfu_practical_pct_buggy": 12.59,
+      "mfu_practical_pct_corrected": 2.27,
+      "mfu_theoretical_pct_corrected": 1.88,
+      "final_cumulative_tokens": 177640.0,
+      "total_time_s": 1426.76,
+      "peak_mem_gb": 13.89,
+      "steps": 10
+    },
+    "C_G2_b2x4_ckpt_256": {
+      "tokens_per_s_buggy": 985.0,
+      "tokens_per_s_corrected": 178.5,
+      "overcount_factor": 5.52,
+      "mfu_practical_pct_buggy": 17.96,
+      "mfu_practical_pct_corrected": 3.25,
+      "mfu_theoretical_pct_corrected": 2.69,
+      "final_cumulative_tokens": 142374.0,
+      "total_time_s": 797.81,
+      "peak_mem_gb": 12.08,
+      "steps": 10
+    },
+    "C_G4_b1x4_ckpt_512": {
+      "tokens_per_s_buggy": 547.9,
+      "tokens_per_s_corrected": 97.9,
+      "overcount_factor": 5.6,
+      "mfu_practical_pct_buggy": 9.99,
+      "mfu_practical_pct_corrected": 1.78,
+      "mfu_theoretical_pct_corrected": 1.48,
+      "final_cumulative_tokens": 88731.0,
+      "total_time_s": 906.59,
+      "peak_mem_gb": 13.83,
+      "steps": 10
+    },
+    "C_G4_b1x8_ckpt_1024": {
+      "tokens_per_s_buggy": 683.1,
+      "tokens_per_s_corrected": 124.1,
+      "overcount_factor": 5.5,
+      "mfu_practical_pct_buggy": 12.46,
+      "mfu_practical_pct_corrected": 2.26,
+      "mfu_theoretical_pct_corrected": 1.87,
+      "final_cumulative_tokens": 180112.0,
+      "total_time_s": 1451.22,
+      "peak_mem_gb": 13.94,
+      "steps": 10
+    },
+    "C_G4_b1x8_ckpt_256": {
+      "tokens_per_s_buggy": 941.9,
+      "tokens_per_s_corrected": 171.5,
+      "overcount_factor": 5.49,
+      "mfu_practical_pct_buggy": 17.18,
+      "mfu_practical_pct_corrected": 3.13,
+      "mfu_theoretical_pct_corrected": 2.59,
+      "final_cumulative_tokens": 142719.0,
+      "total_time_s": 832.11,
+      "peak_mem_gb": 12.11,
+      "steps": 10
+    },
+    "C_G4_b1x8_ckpt_512": {
+      "tokens_per_s_buggy": 722.4,
+      "tokens_per_s_corrected": 131.1,
+      "overcount_factor": 5.51,
+      "mfu_practical_pct_buggy": 13.17,
+      "mfu_practical_pct_corrected": 2.39,
+      "mfu_theoretical_pct_corrected": 1.98,
+      "final_cumulative_tokens": 176707.0,
+      "total_time_s": 1347.56,
+      "peak_mem_gb": 13.92,
+      "steps": 10
+    },
+    "C_G4_b1x8_noCkpt_512": {
+      "tokens_per_s_buggy": 740.4,
+      "tokens_per_s_corrected": 134.8,
+      "overcount_factor": 5.49,
+      "mfu_practical_pct_buggy": 13.5,
+      "mfu_practical_pct_corrected": 2.46,
+      "mfu_theoretical_pct_corrected": 2.03,
+      "final_cumulative_tokens": 178013.0,
+      "total_time_s": 1320.76,
+      "peak_mem_gb": 16.47,
+      "steps": 10
+    },
+    "C_G4_b2x4_ckpt_512": {
+      "tokens_per_s_buggy": 719.2,
+      "tokens_per_s_corrected": 130.6,
+      "overcount_factor": 5.51,
+      "mfu_practical_pct_buggy": 13.11,
+      "mfu_practical_pct_corrected": 2.38,
+      "mfu_theoretical_pct_corrected": 1.97,
+      "final_cumulative_tokens": 179090.0,
+      "total_time_s": 1371.33,
+      "peak_mem_gb": 13.91,
+      "steps": 10
+    },
+    "C_G8_b1x8_ckpt_512": {
+      "tokens_per_s_buggy": 915.8,
+      "tokens_per_s_corrected": 163.4,
+      "overcount_factor": 5.6,
+      "mfu_practical_pct_buggy": 16.7,
+      "mfu_practical_pct_corrected": 2.98,
+      "mfu_theoretical_pct_corrected": 2.46,
+      "final_cumulative_tokens": 175797.0,
+      "total_time_s": 1075.67,
+      "peak_mem_gb": 13.93,
+      "steps": 10
+    }
+  },
+  "gap_L4": {
+    "tokens_per_s_buggy": 1334.4,
+    "correction_factor_estimated": 10.51,
+    "tokens_per_s_corrected_est": 127.0,
+    "achieved_tflops_corrected_est": 2.35,
+    "mfu_practical_pct_corrected_est": 2.32,
+    "note": "L4 no trainer_state; factor = mean of B1 measured factors (estimated)"
+  }
+}

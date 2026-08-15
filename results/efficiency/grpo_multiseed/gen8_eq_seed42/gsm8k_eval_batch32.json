@@ -1,0 +1,8 @@
+{
+  "adapter": "/home/luischen/文档/post-training-01/results/efficiency/grpo_multiseed/gen8_eq_seed42/final_adapter",
+  "n": 500,
+  "correct": 172,
+  "accuracy": 0.344,
+  "elapsed_s": 283.7,
+  "batch_size": 32
+}

@@ -1,0 +1,22 @@
+{
+  "run": "results/efficiency/zsbr/uniform_s42",
+  "n_records": 12800,
+  "n_unique_prompts": 6400,
+  "obs_per_prompt_mean": 2.0,
+  "S_exact_4value_biascorrected": 0.2595,
+  "S_binary_plugin": 0.121,
+  "pred_frac_zero_std_exact": 0.7405,
+  "pred_frac_zero_std_binary_plugin": 0.879,
+  "measured_frac_zero_std": 0.7405,
+  "P4_calibration_pass(<5pp)": true,
+  "p_histogram": {
+    "0.0-0.1": 3233,
+    "0.4-0.5": 1549,
+    "0.9-1.0": 1618
+  },
+  "attainable_S_topM": {
+    "all_prompts(n>=1, 含单观测偏差)": 0.5,
+    "multi_obs_prompts(n>=2G)": "样本不足",
+    "note": "V1 真实可达上界≈topM 均值×(1−ε)+S0×ε; 单观测 p∈{0,1} 使 binary 口径低估"
+  }
+}

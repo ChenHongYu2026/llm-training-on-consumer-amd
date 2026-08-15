@@ -1,0 +1,9 @@
+{
+  "dtype": "bf16",
+  "size": 8192,
+  "iters": 50,
+  "elapsed_s": 0.5415,
+  "practical_peak_tflops": 101.53,
+  "theoretical_peak_tflops": 122.8,
+  "fraction_of_theoretical": 0.827
+}

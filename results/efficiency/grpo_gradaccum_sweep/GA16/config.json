@@ -1,0 +1,20 @@
+{
+  "framework": "hf",
+  "max_steps": 10,
+  "num_generations": 2,
+  "per_device_batch": 1,
+  "grad_accum": 16,
+  "max_completion_length": 256,
+  "max_prompt_length": 256,
+  "lr": 1e-05,
+  "beta": 0.1,
+  "temperature": 0.8,
+  "seed": 42,
+  "output": "/home/luischen/文档/post-training-01/results/efficiency/grpo_gradaccum_sweep/GA16",
+  "model_path": "/home/luischen/models/Qwen2.5-3B-Instruct",
+  "no_sft_adapter": true,
+  "smoke_test": false,
+  "no_profiler": false,
+  "no_4bit": false,
+  "no_gradient_checkpointing": false
+}

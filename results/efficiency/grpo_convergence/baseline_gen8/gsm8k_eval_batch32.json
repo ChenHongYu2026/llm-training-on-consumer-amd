@@ -1,0 +1,8 @@
+{
+  "adapter": "results/efficiency/grpo_convergence/baseline_gen8/final_adapter",
+  "n": 500,
+  "correct": 135,
+  "accuracy": 0.27,
+  "elapsed_s": 283.6,
+  "batch_size": 32
+}

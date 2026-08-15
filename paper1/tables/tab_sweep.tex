@@ -1,0 +1,34 @@
+% Table 4: Hyperparameter sweep results
+% Added ↑ arrows for metric direction, bold optimal
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Hyperparameter sweep results (Unsloth BF16, 50 steps, steady-state corrected caliber). $\uparrow$ indicates higher is better.}
+\label{tab:sweep}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Configuration} & \textbf{tok/s} $\uparrow$ & \textbf{\mfuprac} $\uparrow$ & \textbf{VRAM} \\
+\midrule
+\multicolumn{4}{l}{\textit{Generations (G)}} \\
+\quad G=2, b1$\times$8, 512 & 124.5 & 2.27\% & 13.9G \\
+\quad G=4, b1$\times$8, 512 & 131.1 & 2.39\% & 13.9G \\
+\quad G=8, b1$\times$8, 512 & 163.4 & 2.98\% & 13.9G \\
+\midrule
+\multicolumn{4}{l}{\textit{Effective Batch Size}} \\
+\quad G=4, b1$\times$4, 512 & 97.9 & 1.78\% & 13.8G \\
+\quad G=4, b2$\times$4, 512 & 130.6 & 2.38\% & 13.9G \\
+\midrule
+\multicolumn{4}{l}{\textit{Gradient Checkpointing}} \\
+\quad G=4, b1$\times$8, noCkpt & 134.8 & 2.46\% & 16.5G \\
+\midrule
+\multicolumn{4}{l}{\textit{Sequence Length}} \\
+\quad G=4, b1$\times$8, 256 & 171.5 & 3.13\% & 12.1G \\
+\quad G=4, b1$\times$8, 1024 & 124.1 & 2.26\% & 13.9G \\
+\midrule
+\multicolumn{4}{l}{\textit{Combined Optimal}} \\
+\quad \textbf{G=2, b2$\times$4, 256} & \textbf{178.5} & \textbf{3.25\%} & \textbf{12.1G} \\
+\quad G=2, b1$\times$8, 256 & 172.4 & 3.14\% & 12.1G \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,6 @@
+{
+  "total_seconds": 165.4,
+  "max_steps": 20,
+  "framework": "unsloth",
+  "s_per_step": 8.27
+}

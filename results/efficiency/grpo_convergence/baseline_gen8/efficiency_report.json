@@ -1,0 +1,251 @@
+{
+  "num_params": 3085697024,
+  "peak_tflops_theoretical": 122.8,
+  "peak_tflops_practical": 101.53,
+  "total_steps": 20,
+  "valid_steps": 20,
+  "total_tokens": 2977646,
+  "total_time_s": 1759.51,
+  "tokens_per_s": 1692.3,
+  "s_per_step": 87.975,
+  "achieved_tflops": 31.33,
+  "mfu_theoretical_pct": 25.51,
+  "mfu_practical_pct": 30.86,
+  "peak_mem_gb": 7.39,
+  "gpu_busy": {
+    "gpu_busy_pct": {
+      "mean": 99.1,
+      "max": 100.0,
+      "n": 1676
+    },
+    "mem_use_pct": {
+      "mean": null,
+      "max": null,
+      "n": 0
+    }
+  },
+  "invalid_steps": 0,
+  "gpu_name": "AMD Radeon RX 7900 XTX",
+  "step_records": [
+    {
+      "step": 5,
+      "elapsed_s": 89.88640950701665,
+      "num_tokens": 14444,
+      "samples": 1,
+      "peak_mem_gb": 7.379594802856445,
+      "grad_norm": 0.01312176138162613,
+      "loss": 0.009222512692213058,
+      "lr": 4.000000000000001e-06,
+      "valid": true
+    },
+    {
+      "step": 10,
+      "elapsed_s": 87.2749881700147,
+      "num_tokens": 28275,
+      "samples": 1,
+      "peak_mem_gb": 7.379594802856445,
+      "grad_norm": 0.013250859454274178,
+      "loss": 0.007917199283838272,
+      "lr": 9e-06,
+      "valid": true
+    },
+    {
+      "step": 15,
+      "elapsed_s": 87.30634185997769,
+      "num_tokens": 42253,
+      "samples": 1,
+      "peak_mem_gb": 7.379594802856445,
+      "grad_norm": 0.018611818552017212,
+      "loss": 0.005337531864643097,
+      "lr": 9.951340343707852e-06,
+      "valid": true
+    },
+    {
+      "step": 20,
+      "elapsed_s": 88.37325921299635,
+      "num_tokens": 56674,
+      "samples": 1,
+      "peak_mem_gb": 7.382876396179199,
+      "grad_norm": 0.0012320000678300858,
+      "loss": 0.003751898556947708,
+      "lr": 9.755282581475769e-06,
+      "valid": true
+    },
+    {
+      "step": 25,
+      "elapsed_s": 88.59441869700095,
+      "num_tokens": 70965,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.014084153808653355,
+      "loss": 0.00015261598164215684,
+      "lr": 9.414737964294636e-06,
+      "valid": true
+    },
+    {
+      "step": 30,
+      "elapsed_s": 88.59086749702692,
+      "num_tokens": 85907,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.011745152994990349,
+      "loss": 0.005729387328028679,
+      "lr": 8.94005376803361e-06,
+      "valid": true
+    },
+    {
+      "step": 35,
+      "elapsed_s": 88.02352606196655,
+      "num_tokens": 100038,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.02212020941078663,
+      "loss": 0.005314575508236885,
+      "lr": 8.345653031794292e-06,
+      "valid": true
+    },
+    {
+      "step": 40,
+      "elapsed_s": 87.79747428500559,
+      "num_tokens": 114265,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.029093777760863304,
+      "loss": 0.005299165844917297,
+      "lr": 7.649596321166024e-06,
+      "valid": true
+    },
+    {
+      "step": 45,
+      "elapsed_s": 87.87070042302366,
+      "num_tokens": 128130,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.02083675004541874,
+      "loss": 0.004571357369422912,
+      "lr": 6.873032967079562e-06,
+      "valid": true
+    },
+    {
+      "step": 50,
+      "elapsed_s": 87.58396973501658,
+      "num_tokens": 142033,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.011095298454165459,
+      "loss": -0.0038274791091680526,
+      "lr": 6.039558454088796e-06,
+      "valid": true
+    },
+    {
+      "step": 55,
+      "elapsed_s": 87.64652943599503,
+      "num_tokens": 156213,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.001461509265936911,
+      "loss": 0.0007700492162257433,
+      "lr": 5.174497483512506e-06,
+      "valid": true
+    },
+    {
+      "step": 60,
+      "elapsed_s": 87.85208311997121,
+      "num_tokens": 170223,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.013917957432568073,
+      "loss": 0.002772344648838043,
+      "lr": 4.304134495199675e-06,
+      "valid": true
+    },
+    {
+      "step": 65,
+      "elapsed_s": 87.3177389909979,
+      "num_tokens": 184381,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.0011156512191519141,
+      "loss": 0.010676238685846329,
+      "lr": 3.4549150281252635e-06,
+      "valid": true
+    },
+    {
+      "step": 70,
+      "elapsed_s": 87.58597115898738,
+      "num_tokens": 198296,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.01160523109138012,
+      "loss": 0.0013823039829730988,
+      "lr": 2.6526421860705474e-06,
+      "valid": true
+    },
+    {
+      "step": 75,
+      "elapsed_s": 87.29936542804353,
+      "num_tokens": 211963,
+      "samples": 1,
+      "peak_mem_gb": 7.389686584472656,
+      "grad_norm": 0.014531648717820644,
+      "loss": 0.01214204803109169,
+      "lr": 1.9216926233717087e-06,
+      "valid": true
+    },
+    {
+      "step": 80,
+      "elapsed_s": 88.73435314797098,
+      "num_tokens": 226482,
+      "samples": 1,
+      "peak_mem_gb": 7.391391277313232,
+      "grad_norm": 0.0252985842525959,
+      "loss": 0.012063096463680267,
+      "lr": 1.2842758726130283e-06,
+      "valid": true
+    },
+    {
+      "step": 85,
+      "elapsed_s": 87.97698263503844,
+      "num_tokens": 240690,
+      "samples": 1,
+      "peak_mem_gb": 7.391391277313232,
+      "grad_norm": 0.013459143228828907,
+      "loss": 0.001979159563779831,
+      "lr": 7.597595192178702e-07,
+      "valid": true
+    },
+    {
+      "step": 90,
+      "elapsed_s": 88.22249824594473,
+      "num_tokens": 254915,
+      "samples": 1,
+      "peak_mem_gb": 7.391391277313232,
+      "grad_norm": 0.019305214285850525,
+      "loss": 0.006685110926628113,
+      "lr": 3.6408072716606346e-07,
+      "valid": true
+    },
+    {
+      "step": 95,
+      "elapsed_s": 87.39409034204436,
+      "num_tokens": 268674,
+      "samples": 1,
+      "peak_mem_gb": 7.391391277313232,
+      "grad_norm": 0.02438310533761978,
+      "loss": 0.006525564193725586,
+      "lr": 1.0926199633097156e-07,
+      "valid": true
+    },
+    {
+      "step": 100,
+      "elapsed_s": 88.17834223195678,
+      "num_tokens": 282825,
+      "samples": 1,
+      "peak_mem_gb": 7.391391277313232,
+      "grad_norm": 0.018256912007927895,
+      "loss": 0.006253857910633087,
+      "lr": 3.0458649045211897e-09,
+      "valid": true
+    }
+  ]
+}

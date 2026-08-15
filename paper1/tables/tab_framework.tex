@@ -1,0 +1,20 @@
+% Table 2: Framework efficiency comparison
+% Fixed: reduced from 5 columns to 4, moved Valid to footnote
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Framework efficiency comparison on GSM8K GRPO (steady-state corrected caliber).}
+\label{tab:framework}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Framework} & \textbf{tok/s} $\uparrow$ & \textbf{\mfuprac} $\uparrow$ & \textbf{VRAM} \\
+\midrule
+Unsloth BF16 & 129.4$\pm$2.6 & 2.36$\pm$0.04\% & 13.9G \\
+HF Native BF16 & 123.1$\pm$0.8 & 2.24$\pm$0.01\% & 8.0G \\
+Unsloth 4-bit & 76.8 & 1.40\% & 10.2G \\
+\midrule
+\textit{Speedup (U/HF)} & \multicolumn{2}{c}{+5.2\%} & +73.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}

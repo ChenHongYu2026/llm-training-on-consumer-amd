@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "experiment": "2D (pdb x grad_accum) sweep for decoupled-GRPO throughput limit",
+    "gpu": "RX 7900 XTX (RDNA3, 960 GB/s)",
+    "model": "Qwen2.5-3B-Instruct",
+    "framework": "hf",
+    "G_fixed": 2,
+    "max_steps": 8,
+    "logging_steps": 2,
+    "max_completion_length": 256,
+    "note": "gen_batch=pdb×grad_accum, backward_batch=pdb; steady_tps 剔除首个 warmup 区间"
+  },
+  "results": [
+    {
+      "pdb": 1,
+      "grad_accum": 64,
+      "gen_batch": 64,
+      "backward_batch": 1,
+      "profiler_avg_tps_BUGGY": 1238.6,
+      "steady_tps": 498.9,
+      "steady_mfu_practical_pct": 9.098,
+      "full_tps_corrected": 495.1,
+      "steady_intervals": 3,
+      "peak_mem_gb": 8.87,
+      "gpu_busy_mean": 97.5
+    },
+    {
+      "pdb": 2,
+      "grad_accum": 32,
+      "gen_batch": 64,
+      "backward_batch": 2,
+      "profiler_avg_tps_BUGGY": 1457.3,
+      "steady_tps": 588.0,
+      "steady_mfu_practical_pct": 10.722,
+      "full_tps_corrected": 581.6,
+      "steady_intervals": 3,
+      "peak_mem_gb": 8.87,
+      "gpu_busy_mean": 98.0
+    },
+    {
+      "pdb": 4,
+      "grad_accum": 16,
+      "gen_batch": 64,
+      "backward_batch": 4,
+      "profiler_avg_tps_BUGGY": 1567.9,
+      "steady_tps": 630.0,
+      "steady_mfu_practical_pct": 11.487,
+      "full_tps_corrected": 625.5,
+      "steady_intervals": 3,
+      "peak_mem_gb": 8.87,
+      "gpu_busy_mean": 98.4
+    },
+    {
+      "pdb": 8,
+      "grad_accum": 8,
+      "gen_batch": 64,
+      "backward_batch": 8,
+      "profiler_avg_tps_BUGGY": 1559.8,
+      "steady_tps": 628.0,
+      "steady_mfu_practical_pct": 11.451,
+      "full_tps_corrected": 622.4,
+      "steady_intervals": 3,
+      "peak_mem_gb": 10.73,
+      "gpu_busy_mean": 98.7
+    },
+    {
+      "pdb": 2,
+      "grad_accum": 64,
+      "gen_batch": 128,
+      "backward_batch": 2,
+      "profiler_avg_tps_BUGGY": 1709.3,
+      "steady_tps": 686.1,
+      "steady_mfu_practical_pct": 12.51,
+      "full_tps_corrected": 682.9,
+      "steady_intervals": 3,
+      "peak_mem_gb": 11.25,
+      "gpu_busy_mean": 98.3
+    },
+    {
+      "pdb": 4,
+      "grad_accum": 32,
+      "gen_batch": 128,
+      "backward_batch": 4,
+      "profiler_avg_tps_BUGGY": 1849.0,
+      "steady_tps": 745.2,
+      "steady_mfu_practical_pct": 13.59,
+      "full_tps_corrected": 738.9,
+      "steady_intervals": 3,
+      "peak_mem_gb": 11.26,
+      "gpu_busy_mean": 98.7
+    },
+    {
+      "pdb": 4,
+      "grad_accum": 64,
+      "gen_batch": 256,
+      "backward_batch": 4,
+      "profiler_avg_tps_BUGGY": 1992.7,
+      "steady_tps": 795.5,
+      "steady_mfu_practical_pct": 14.506,
+      "full_tps_corrected": 796.5,
+      "steady_intervals": 3,
+      "peak_mem_gb": 15.82,
+      "gpu_busy_mean": 98.8
+    },
+    {
+      "pdb": 4,
+      "grad_accum": 96,
+      "gen_batch": 384,
+      "backward_batch": 4,
+      "error": "returncode=1"
+    },
+    {
+      "pdb": 4,
+      "grad_accum": 128,
+      "gen_batch": 512,
+      "backward_batch": 4,
+      "error": "returncode=1"
+    },
+    {
+      "pdb": 8,
+      "grad_accum": 32,
+      "gen_batch": 256,
+      "backward_batch": 8,
+      "profiler_avg_tps_BUGGY": 1991.5,
+      "steady_tps": 794.3,
+      "steady_mfu_practical_pct": 14.484,
+      "full_tps_corrected": 796.3,
+      "steady_intervals": 3,
+      "peak_mem_gb": 15.81,
+      "gpu_busy_mean": 99.3
+    }
+  ],
+  "verdict": "极限点: 4×64 (gen_batch=256, bwd=4) → steady 795.5 tok/s, MFU 14.506%, 显存 15.82GB | gen64 反向杠杆: bwd1=498.9 → 最优 bwd4=630.0 tok/s"
+}

@@ -1,0 +1,16 @@
+{
+  "framework": "unsloth",
+  "max_steps": 20,
+  "num_generations": 2,
+  "per_device_batch": 1,
+  "grad_accum": 2,
+  "max_completion_length": 512,
+  "max_prompt_length": 256,
+  "lr": 1e-05,
+  "beta": 0.1,
+  "temperature": 0.8,
+  "seed": 42,
+  "output": "/home/luischen/文档/post-training-01/results/efficiency/gsm8k-grpo-unsloth-20260722-123658-seed42",
+  "smoke_test": true,
+  "no_profiler": false
+}

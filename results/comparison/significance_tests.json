@@ -1,0 +1,14 @@
+{
+  "lawbench_cn": {
+    "comparison": "GRPO-Multi vs SFT-Only",
+    "effect_description": "Cohen's d (effect size of GRPO over SFT)"
+  },
+  "casehold_us": {
+    "comparison": "GRPO-Multi vs SFT-Only",
+    "effect_description": "Cohen's d (effect size of GRPO over SFT)"
+  },
+  "gdpr_eu": {
+    "comparison": "GRPO-Multi vs SFT-Only",
+    "effect_description": "Cohen's d (effect size of GRPO over SFT)"
+  }
+}

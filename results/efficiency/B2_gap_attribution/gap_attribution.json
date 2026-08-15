@@ -1,0 +1,80 @@
+{
+  "model_params": 3085697024,
+  "gemm_peak_tflops": 101.53,
+  "levels": {
+    "L1_inference": {
+      "desc": "Autoregressive generate (batch=1, 256 new tokens)",
+      "tokens": 2560,
+      "elapsed_s": 68.98,
+      "tokens_per_s": 37.1,
+      "achieved_tflops": 0.229,
+      "mfu_practical_pct": 0.226,
+      "peak_mem_gb": 6.22,
+      "note": "2ND (forward only, bandwidth-bound)"
+    },
+    "L2_sft_no_ckpt": {
+      "desc": "SFT train (batch=2, seq=256, no grad_ckpt)",
+      "tokens": 10240,
+      "elapsed_s": 6.86,
+      "tokens_per_s": 1492.6,
+      "achieved_tflops": 27.634,
+      "mfu_practical_pct": 27.218,
+      "peak_mem_gb": 12.47,
+      "note": "6ND (forward+backward, no recompute)"
+    },
+    "L3_sft_with_ckpt": {
+      "desc": "SFT train (batch=2, seq=256, grad_ckpt=True)",
+      "tokens": 10240,
+      "elapsed_s": 9.32,
+      "tokens_per_s": 1098.3,
+      "achieved_tflops": 20.333,
+      "mfu_practical_pct": 20.027,
+      "peak_mem_gb": 8.13,
+      "note": "6ND + recompute overhead"
+    },
+    "L4_grpo_full": {
+      "desc": "GRPO full (G=4, gen+train, Unsloth BF16)",
+      "tokens": 3750622,
+      "elapsed_s": 2810.65,
+      "tokens_per_s": 1334.4,
+      "achieved_tflops": 24.71,
+      "mfu_practical_pct": 24.338,
+      "peak_mem_gb": 13.91,
+      "note": "6ND for train steps; generation amortized"
+    }
+  },
+  "waterfall": [
+    {
+      "level": "L0_gemm_peak",
+      "tflops": 101.53,
+      "delta": 0,
+      "mfu_pct": 100.0
+    },
+    {
+      "level": "L1_inference",
+      "tflops": 0.229,
+      "delta": 101.301,
+      "mfu_pct": 0.23
+    },
+    {
+      "level": "L2_sft_no_ckpt",
+      "tflops": 27.634,
+      "delta": -27.405,
+      "mfu_pct": 27.22
+    },
+    {
+      "level": "L3_sft_with_ckpt",
+      "tflops": 20.333,
+      "delta": 7.301,
+      "mfu_pct": 20.03
+    },
+    {
+      "level": "L4_grpo_full",
+      "tflops": 24.71,
+      "delta": -4.377,
+      "mfu_pct": 24.34
+    }
+  ],
+  "total_gap_tflops": 76.82,
+  "total_gap_pct": 75.7
+}

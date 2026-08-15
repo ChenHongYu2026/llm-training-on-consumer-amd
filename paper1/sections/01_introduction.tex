@@ -1,0 +1,19 @@
+% ═══════════════════════════════════════════════════════════
+% §1 Introduction
+% ═══════════════════════════════════════════════════════════
+\section{Introduction}
+\label{sec:intro}
+
+The proliferation of large language models (LLMs) has democratized AI capabilities, yet the computational cost of post-training, including supervised fine-tuning (SFT) and reinforcement learning from human feedback (RLHF/GRPO), remains a barrier for individual researchers and small teams. Consumer-grade GPUs, particularly AMD's RDNA3 architecture (RX 7900 XTX, 24GB), offer an accessible alternative to expensive data-center hardware. However, unlike NVIDIA's ecosystem with extensive efficiency studies on A100/H100 clusters~\citep{chowdhery2022palm, hoffmann2022chinchilla}, the training efficiency characteristics of consumer AMD GPUs remain largely unexplored in academic literature.
+
+Existing MFU (Model FLOPS Utilization) studies universally assume dedicated tensor cores (NVIDIA Tensor Cores, AMD Matrix Cores on Instinct). RDNA3 consumer GPUs implement matrix operations via WMMA (Wave Matrix Multiply-Accumulate) microcoded vector instructions rather than dedicated silicon, making the spec-sheet peak (122.8 TFLOPS BF16) fundamentally unreachable in practice. This architectural distinction necessitates a new measurement methodology, our \emph{dual-peak MFU} approach, that separately reports utilization against theoretical and practical peaks.
+
+Unsloth~\citep{unsloth2024} is a widely adopted training framework that recently introduced official AMD support in collaboration with the AMD team, reporting up to 2$\times$ speedups on data-center Instinct GPUs equipped with dedicated Matrix Cores (CDNA architecture). However, consumer RDNA~3 lacks any dedicated AI acceleration hardware and relies entirely on WMMA microcoded vector instructions, making efficiency characteristics observed on CDNA-class hardware non-transferable.
+
+\paragraph{Contributions.} We make the following contributions:
+\begin{enumerate}
+    \item A \textbf{dual-peak MFU reporting methodology} that separately measures utilization against the spec-sheet theoretical peak and a practical GEMM peak, with quantified bias for architectures lacking dedicated tensor cores.
+    \item A \textbf{systematic efficiency characterization} of LLM post-training on consumer RDNA3, including framework comparison (Unsloth vs HF, 3 seeds) and component-stacking gap attribution revealing a 75.7\% efficiency gap.
+    \item A \textbf{tuning study} across 10 configurations with mechanistic explanations, yielding an actionable optimal recipe for practitioners.
+    \item An \textbf{open-source profiler} incorporating a training validity check (grad\_norm$>$0) to ensure reported throughput reflects genuine parameter updates.
+\end{enumerate}

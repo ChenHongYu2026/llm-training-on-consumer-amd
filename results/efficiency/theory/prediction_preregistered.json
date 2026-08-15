@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "purpose": "PREREGISTERED blind prediction for E1 (gen384/gen512) — written BEFORE experiments",
+    "timestamp": "2026-07-25T08:15:27",
+    "model": "T_step = a1 + a2*Bg + a3*(Bg/Bb);  M = m0 + mg*Bg + mb*max(0,Bb-4)",
+    "fit_points": [
+      [
+        1,
+        64
+      ],
+      [
+        2,
+        32
+      ],
+      [
+        4,
+        16
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        4,
+        32
+      ],
+      [
+        4,
+        64
+      ]
+    ],
+    "hit_criteria": {
+      "tps_rel_err_pct": 10,
+      "mem_abs_err_gb": 1.0
+    }
+  },
+  "time_model": {
+    "a1_const_s": 10.829,
+    "a2_per_Bg_s": 0.3579,
+    "a3_per_microbatch_s": 0.1702,
+    "fit_resid_pct": [
+      -2.7,
+      1.03,
+      0.76,
+      -3.32,
+      2.05,
+      2.13,
+      -0.77
+    ]
+  },
+  "mem_model": {
+    "m0_gb": 6.57,
+    "mg_gb_per_Bg": 0.03625,
+    "mb_gb_per_Bb_gt4": 0.46,
+    "fit_resid_gb": [
+      0.02,
+      0.02,
+      0.02,
+      0.0,
+      -0.04,
+      -0.05,
+      0.03
+    ]
+  },
+  "decode_rooline_check": {
+    "points_ms_per_step": [
+      [
+        1,
+        21.38
+      ],
+      [
+        4,
+        23.19
+      ],
+      [
+        8,
+        25.34
+      ],
+      [
+        16,
+        28.92
+      ],
+      [
+        32,
+        34.6
+      ],
+      [
+        64,
+        47.97
+      ]
+    ],
+    "alpha_ms": 21.63,
+    "beta_ms_per_seq": 0.413,
+    "note": "生成相 t(B)=alpha+beta*B; a2 应≈beta*L_gen/1000+gamma_bwd (docs/19 §2 交叉验证)"
+  },
+  "k_tok_per_Bg": 355.7,
+  "predictions": [
+    {
+      "pdb": 4,
+      "ga": 96,
+      "gen_batch": 384,
+      "bwd": 4,
+      "pred_T_step_s": 164.62,
+      "pred_steady_tps": 829.7,
+      "pred_peak_mem_gb": 20.49,
+      "pred_oom": false
+    },
+    {
+      "pdb": 4,
+      "ga": 128,
+      "gen_batch": 512,
+      "bwd": 4,
+      "pred_T_step_s": 215.89,
+      "pred_steady_tps": 843.6,
+      "pred_peak_mem_gb": 25.13,
+      "pred_oom": true
+    }
+  ]
+}

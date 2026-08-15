@@ -1,0 +1,8 @@
+{
+  "adapter": "/home/luischen/文档/post-training-01/results/efficiency/zsbr/uniform_s7/final_adapter",
+  "n": 500,
+  "correct": 166,
+  "accuracy": 0.332,
+  "elapsed_s": 283.8,
+  "batch_size": 32
+}

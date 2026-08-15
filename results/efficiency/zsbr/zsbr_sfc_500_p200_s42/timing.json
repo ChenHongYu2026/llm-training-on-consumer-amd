@@ -1,0 +1,6 @@
+{
+  "total_seconds": 30033.6,
+  "max_steps": 500,
+  "framework": "hf",
+  "s_per_step": 60.07
+}

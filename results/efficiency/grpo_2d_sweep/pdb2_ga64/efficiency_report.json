@@ -1,0 +1,75 @@
+{
+  "num_params": 3085697024,
+  "peak_tflops_theoretical": 122.8,
+  "peak_tflops_practical": 101.53,
+  "total_steps": 4,
+  "valid_steps": 4,
+  "total_tokens": 913558,
+  "total_time_s": 534.47,
+  "tokens_per_s": 1709.3,
+  "s_per_step": 133.617,
+  "achieved_tflops": 31.65,
+  "mfu_theoretical_pct": 25.77,
+  "mfu_practical_pct": 31.17,
+  "peak_mem_gb": 11.25,
+  "gpu_busy": {
+    "gpu_busy_pct": {
+      "mean": 98.3,
+      "max": 100.0,
+      "n": 509
+    },
+    "mem_use_pct": {
+      "mean": null,
+      "max": null,
+      "n": 0
+    }
+  },
+  "invalid_steps": 0,
+  "gpu_name": "AMD Radeon RX 7900 XTX",
+  "step_records": [
+    {
+      "step": 2,
+      "elapsed_s": 137.37432437500684,
+      "num_tokens": 92535,
+      "samples": 2,
+      "peak_mem_gb": 11.254106044769287,
+      "grad_norm": 0.0003830866771750152,
+      "loss": 0.003453618148341775,
+      "lr": 1.0000000000000002e-06,
+      "valid": true
+    },
+    {
+      "step": 4,
+      "elapsed_s": 131.89380012097536,
+      "num_tokens": 182912,
+      "samples": 2,
+      "peak_mem_gb": 11.254106044769287,
+      "grad_norm": 0.000454198190709576,
+      "loss": 0.008713209070265293,
+      "lr": 3e-06,
+      "valid": true
+    },
+    {
+      "step": 6,
+      "elapsed_s": 134.12476644403068,
+      "num_tokens": 273148,
+      "samples": 2,
+      "peak_mem_gb": 11.254106044769287,
+      "grad_norm": 0.00033075452665798366,
+      "loss": 0.0019364975159987807,
+      "lr": 5e-06,
+      "valid": true
+    },
+    {
+      "step": 8,
+      "elapsed_s": 131.07573733001482,
+      "num_tokens": 364963,
+      "samples": 2,
+      "peak_mem_gb": 11.254106044769287,
+      "grad_norm": 0.00047292199451476336,
+      "loss": 0.004620849620550871,
+      "lr": 7e-06,
+      "valid": true
+    }
+  ]
+}

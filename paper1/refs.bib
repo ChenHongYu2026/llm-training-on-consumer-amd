@@ -1,0 +1,272 @@
+% ═══════════════════════════════════════════════════════════
+% References for LLM Post-Training Efficiency Paper
+% Organized by category
+% ═══════════════════════════════════════════════════════════
+
+% ───────────────────────────────────────────────────────────
+% MFU & Efficiency Studies
+% ───────────────────────────────────────────────────────────
+
+@article{chowdhery2022palm,
+  title={PaLM: Scaling Language Modeling with Pathways},
+  author={Chowdhery, Aakanksha and Narang, Sharan and Devlin, Jacob and Bosma, Maarten and Mishra, Gaurav and Roberts, Adam and Barham, Paul and Chung, Hyung Won and Sutton, Charles and Gehrmann, Sebastian and others},
+  journal={arXiv preprint arXiv:2204.02311},
+  year={2022}
+}
+
+@article{hoffmann2022chinchilla,
+  title={Training Compute-Optimal Large Language Models},
+  author={Hoffmann, Jordan and Borgeaud, Sebastian and Mensch, Arthur and Buchatskaya, Elena and Cai, Trevor and Rutherford, Eliza and Casas, Diego de Las and Hendricks, Lisa Anne and Welbl, Johannes and Clark, Aidan and others},
+  journal={arXiv preprint arXiv:2203.15556},
+  year={2022}
+}
+
+@article{kaplan2020scaling,
+  title={Scaling Laws for Neural Language Models},
+  author={Kaplan, Jared and McCandlish, Sam and Henighan, Tom and Brown, Tom B and Chess, Benjamin and Child, Rewon and Gray, Scott and Radford, Alec and Wu, Jeffrey and Amodei, Dario},
+  journal={arXiv preprint arXiv:2001.08361},
+  year={2020}
+}
+
+@inproceedings{rae2021gopher,
+  title={Scaling Language Models: Methods, Analysis \& Insights from Training Gopher},
+  author={Rae, Jack W and Borgeaud, Sebastian and Cai, Trevor and Millican, Katie and Hoffmann, Jordan and Song, Francis and Aslanides, John and Henderson, Sarah and Ring, Roman and Young, Susannah and others},
+  booktitle={arXiv preprint arXiv:2112.11446},
+  year={2021}
+}
+
+% ───────────────────────────────────────────────────────────
+% Training Frameworks
+% ───────────────────────────────────────────────────────────
+
+@misc{unsloth2024,
+  title={Unsloth: Fast and Efficient LLM Fine-tuning},
+  author={{Unsloth AI}},
+  year={2024},
+  howpublished={\url{https://github.com/unslothai/unsloth}},
+  note={Accessed: 2026-07}
+}
+
+@inproceedings{zheng2024llamafactory,
+  title={LlamaFactory: Unified Efficient Fine-Tuning of 100+ Language Models},
+  author={Zheng, Yaowei and Zhang, Richong and Zhang, Junhao and Ye, Yanhan and Luo, Zheyan and Feng, Zhangchi and Liu, Yongqiang},
+  booktitle={Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (ACL): System Demonstrations},
+  year={2024}
+}
+
+@misc{vonwerra2022trl,
+  title={TRL: Transformer Reinforcement Learning},
+  author={von Werra, Leandro and Belkada, Younes and Tunstall, Lewis and Beeching, Edward and Thrush, Tristan and Lambert, Nathan and others},
+  year={2022},
+  howpublished={\url{https://github.com/huggingface/trl}}
+}
+
+@inproceedings{rasley2020deepspeed,
+  title={DeepSpeed: System Optimizations Enable Training Deep Learning Models with Over 100 Billion Parameters},
+  author={Rasley, Jeff and Rajbhandari, Samyam and Awan, Ammar and Li, Cheng and Li, Du and Zheng, Ruoxuan and Ruwase, Olatunji and Smith, Shaden and Zhang, Minjia and Rasley, Jeff and others},
+  booktitle={Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  pages={3505--3506},
+  year={2020}
+}
+
+% ───────────────────────────────────────────────────────────
+% LoRA & Quantization
+% ───────────────────────────────────────────────────────────
+
+@inproceedings{hu2022lora,
+  title={LoRA: Low-Rank Adaptation of Large Language Models},
+  author={Hu, Edward J and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2022}
+}
+
+@inproceedings{dettmers2023qlora,
+  title={QLoRA: Efficient Finetuning of Quantized LLMs},
+  author={Dettmers, Tim and Pagnoni, Artidoro and Holtzman, Ari and Zettlemoyer, Luke},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2023}
+}
+
+@article{frantar2022gptq,
+  title={GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers},
+  author={Frantar, Elias and Ashkboos, Saleh and Hoefler, Torsten and Alistarh, Dan},
+  journal={arXiv preprint arXiv:2210.17323},
+  year={2022}
+}
+
+% ───────────────────────────────────────────────────────────
+% GRPO & RLHF
+% ───────────────────────────────────────────────────────────
+
+@article{shao2024grpo,
+  title={DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models},
+  author={Shao, Zhihong and Wang, Peiyi and Zhu, Qihao and Xu, Runxin and Song, Junxiao and Bi, Xiao and Zhang, Haowei and Zhang, Mingchuan and Li, YK and Wu, Y and others},
+  journal={arXiv preprint arXiv:2402.03300},
+  year={2024}
+}
+
+@article{ouyang2022instructgpt,
+  title={Training Language Models to Follow Instructions with Human Feedback},
+  author={Ouyang, Long and Wu, Jeffrey and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and others},
+  journal={Advances in Neural Information Processing Systems (NeurIPS)},
+  volume={35},
+  pages={27730--27744},
+  year={2022}
+}
+
+@article{schulman2017ppo,
+  title={Proximal Policy Optimization Algorithms},
+  author={Schulman, John and Wolski, Filip and Dhariwal, Prafulla and Radford, Alec and Klimov, Oleg},
+  journal={arXiv preprint arXiv:1707.06347},
+  year={2017}
+}
+
+% ───────────────────────────────────────────────────────────
+% AMD Hardware & ROCm
+% ───────────────────────────────────────────────────────────
+
+@techreport{amd2022rdna3,
+  title={AMD RDNA 3 Architecture White Paper},
+  author={{Advanced Micro Devices}},
+  year={2022},
+  institution={AMD},
+  note={\url{https://www.amd.com/en/graphics/radeon-rx-7000-series}}
+}
+
+@misc{rocm2024,
+  title={ROCm: Radeon Open Compute Platform},
+  author={{Advanced Micro Devices}},
+  year={2024},
+  howpublished={\url{https://rocm.docs.amd.com/}},
+  note={Version 7.2}
+}
+
+% ───────────────────────────────────────────────────────────
+% Measurement & Benchmarks
+% ───────────────────────────────────────────────────────────
+
+
+@inproceedings{mattson2020mlperf,
+  title={MLPerf: An Industry Standard Benchmark Suite for Machine Learning Performance},
+  author={Mattson, Peter and Reddi, Vijay Janapa and Cheng, Christine and Coleman, Cody and Diamos, Greg and Kanter, David and Micikevicius, Paulius and Patterson, David and Schmuelling, Guenther and Tang, Hanlin and others},
+  booktitle={IEEE Micro},
+  volume={40},
+  number={2},
+  pages={8--16},
+  year={2020}
+}
+
+% ───────────────────────────────────────────────────────────
+% Models
+% ───────────────────────────────────────────────────────────
+
+@article{qwen2024qwen25,
+  title={Qwen2.5 Technical Report},
+  author={{Qwen Team}},
+  journal={arXiv preprint arXiv:2412.15115},
+  year={2024}
+}
+
+@article{touvron2023llama,
+  title={LLaMA: Open and Efficient Foundation Language Models},
+  author={Touvron, Hugo and Lavril, Thibaut and Izacard, Gautier and Martinet, Xavier and Lachaux, Marie-Anne and Lacroix, Timoth{\'e}e and Rozi{\`e}re, Baptiste and Goyal, Naman and Hambro, Eric and Azhar, Faisal and others},
+  journal={arXiv preprint arXiv:2302.13971},
+  year={2023}
+}
+
+% ───────────────────────────────────────────────────────────
+% Systems & Optimization
+% ───────────────────────────────────────────────────────────
+
+@inproceedings{dao2022flashattention,
+  title={FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness},
+  author={Dao, Tri and Fu, Daniel Y and Ermon, Stefano and Rudra, Atri and R{\'e}, Christopher},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2022}
+}
+
+@article{pope2023efficiently,
+  title={Efficiently Scaling Transformer Inference},
+  author={Pope, Reiner and Douglas, Sholto and Chowdhery, Aakanksha and Devlin, Jacob and Bradbury, James and Heek, Jonathan and Xiao, Kefan and Agrawal, Shivani and Dean, Jeff},
+  journal={Proceedings of Machine Learning and Systems (MLSys)},
+  volume={5},
+  pages={606--624},
+  year={2023}
+}
+
+@inproceedings{aminabadi2022deepspeedinference,
+  title={DeepSpeed-Inference: Enabling Efficient Inference of Transformer Models at Unprecedented Scale},
+  author={Aminabadi, Reza Yazdani and Rajbhandari, Samyam and Awan, Ammar and Li, Cheng and Li, Du and Zheng, Ruoxuan and Ruwase, Olatunji and Smith, Shaden and Zhang, Minjia and Rasley, Jeff and others},
+  booktitle={International Conference for High Performance Computing (SC)},
+  year={2022}
+}
+
+% ───────────────────────────────────────────────────────────
+% Datasets
+% ───────────────────────────────────────────────────────────
+
+@article{cobbe2021gsm8k,
+  title={Training Verifiers to Solve Math Word Problems},
+  author={Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and Chen, Mark and Jun, Heewoo and Kaiser, Lukasz and Plappert, Matthias and Tworek, Jerry and Hilton, Jacob and Nakano, Reiichiro and others},
+  journal={arXiv preprint arXiv:2110.14168},
+  year={2021}
+}
+
+% ───────────────────────────────────────────────────────────
+% Roofline & Performance Modeling
+% ───────────────────────────────────────────────────────────
+
+@article{williams2009roofline,
+  title={Roofline: An Insightful Visual Performance Model for Multicore Architectures},
+  author={Williams, Samuel and Waterman, Andrew and Patterson, David},
+  journal={Communications of the ACM},
+  volume={52},
+  number={4},
+  pages={65--76},
+  year={2009}
+}
+
+% ── Three-Layer Paper additions (2026-07-30) ──
+
+@article{zheng2025greso,
+  title={Act Only When It Pays: Efficient Reinforcement Learning for LLM Reasoning via Selective Rollouts},
+  author={Zheng, Haizhong and Zhou, Yang and Bartoldson, Brian R. and Kailkhura, Bhavya and Chen, Beidi},
+  journal={arXiv preprint arXiv:2506.02177},
+  year={2025}
+}
+
+@article{gao2025pcl,
+  title={Prompt Curriculum Learning for Efficient LLM Post-Training},
+  author={Gao, Zhaolin and Kim, Joongwon and Sun, Wen and Joachims, Thorsten and Wang, Sid and Pang, Richard Yuanzhe and Tan, Liang},
+  journal={arXiv preprint arXiv:2510.01135},
+  year={2025}
+}
+
+@article{le2025rlzvp,
+  title={No Prompt Left Behind: Exploiting Zero-Variance Prompts in LLM Reinforcement Learning via Entropy-Guided Advantage Shaping},
+  author={Le, Thanh-Long V. and Jeon, Myeongho and Vu, Kim and Lai, Viet and Yang, Eunho},
+  journal={arXiv preprint arXiv:2509.21880},
+  year={2025},
+  note={ICLR 2026 camera-ready}
+}
+
+@article{huang2026implicit,
+  title={On the Emergence of Implicit Curriculum in RLVR Learning Dynamics},
+  author={Huang, Yu and others},
+  journal={arXiv preprint arXiv:2602.14872},
+  year={2026}
+}
+
+@article{li2026srpo,
+  title={Unifying Group-Relative and Self-Distillation Policy Optimization via Sample Routing},
+  author={Li, Gengsheng and Yang, Tianyu and Fang, Junfeng and Song, Mingyang and Zheng, Mao and Guo, Haiyun and Zhang, Dan and Wang, Jinqiao and Chua, Tat-Seng},
+  journal={arXiv preprint arXiv:2604.02288},
+  year={2026}
+}
+
+@article{yu2025dapo,
+  title={DAPO: An Open-Source LLM Reinforcement Learning System},
+  author={Yu, Qiying and others},
+  journal={arXiv:2503.14476},
+  year={2025}
+}

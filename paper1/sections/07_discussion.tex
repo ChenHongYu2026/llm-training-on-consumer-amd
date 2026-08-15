@@ -1,0 +1,23 @@
+% ═══════════════════════════════════════════════════════════
+% §7 Discussion
+% ═══════════════════════════════════════════════════════════
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Architecture-Dependent Optimization}
+
+Perhaps the most consequential insight from this study is that optimization strategies are architecture-conditional, not universally transferable. Two findings illustrate this sharply: 4-bit quantization \emph{reduces} throughput by 41\% on RDNA3 while accelerating it on NVIDIA hardware with INT4 Tensor Cores; Unsloth's kernel fusion delivers 2$\times$ on data-center CDNA but only 5.2\% on consumer RDNA3. The root cause is a shift in the dominant bottleneck. NVIDIA's ecosystem is largely memory-bound (high compute, relatively constrained bandwidth per FLOP), so techniques that reduce memory traffic (quantization, fusion) yield proportional speedups. RDNA3 inverts this: with 122.8 TFLOPS of compute fed by only 960 GB/s bandwidth, the architecture is compute-saturated for batched training, and memory-saving optimizations merely add overhead without relieving the true constraint.
+
+The practical implication for the growing community of consumer AMD trainers is direct: performance intuitions built on A100/H100 literature do not apply. Configurations that are optimal on NVIDIA hardware may be pessimal on RDNA3, and vice versa. Framework marketing claims benchmarked on data-center GPUs should be evaluated with architectural skepticism.
+
+\subsection{The Generation Bottleneck and Its Implications}
+
+The gap attribution's most striking result is that autoregressive inference dominates the efficiency gap between hardware peak and end-to-end GRPO training. This reframes the optimization priority for RL-based post-training: the training step itself (27.2\% \mfuprac{}) is already reasonably efficient; the system-level bottleneck is the generation phase that precedes it. Any technology that reduces generation latency or amortizes weight reads over more tokens, including larger generation batches, speculative decoding, KV-cache optimization, or shorter completion targets, directly attacks the dominant loss term. Follow-up work on this platform confirms the diagnosis: decoupling the generation batch from the backward micro-batch and scaling the former to 256 sequences raises steady-state throughput to 795.5 \toksec{} (97.6\% of the memory-wall-constrained optimum for this workload), a 4.5$\times$ improvement over the best small-batch recipe reported here.
+
+This finding also contextualizes the ``efficiency tax'' of consumer hardware under small-batch RL. At 3.25\% end-to-end \mfuprac{} (optimal sweep recipe), the RX 7900 XTX sits below the 10.5\% reported for multi-GPU A100 GRPO clusters (SemiAnalysis) --- but the comparison is caliber-sensitive: our training-step-only MFU (20--27\%) is comparable to data-center LoRA fine-tuning, and the end-to-end figure is dominated by the un-pipelined generation phase that cluster systems overlap across devices. Given a price ratio exceeding 15:1 (\$900 vs \$15,000+), the cost-per-token-trained remains favorable for individual researchers, provided the workload fits within 24\,GB VRAM and generation batch is scaled aggressively.
+
+\subsection{Toward Comparable Efficiency Reporting}
+
+The 17.3\% systematic bias we quantify is not unique to RDNA3. Any architecture where the practical GEMM peak falls below 95\% of the spec-sheet value, including Intel Arc (Xe-HPG), pre-Tensor-Core NVIDIA GPUs, and emerging RISC-V accelerators, suffers the same conflation of hardware limitation with software inefficiency. When a study reports 2.4\% MFU against an unreachable theoretical peak, the software may actually be achieving 2.9\% against what the hardware can deliver, a meaningful difference in interpretation.
+
+We advocate a simple diagnostic: before reporting MFU, measure one large GEMM (Listing~\ref{lst:gemm}), compute $P_{\text{GEMM}}/P_{\text{spec}}$, and if the ratio falls below 0.95, report both \mfutheo{} and \mfuprac{}. This adds one minute of benchmarking time and prevents systematic underestimation of software efficiency across an entire class of architectures. Our open-source profiler automates this measurement alongside per-step validity checking.

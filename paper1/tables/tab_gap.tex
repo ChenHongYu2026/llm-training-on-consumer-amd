@@ -1,0 +1,22 @@
+% Table 3: Gap attribution breakdown
+% Fixed: shortened Mechanism column, footnotesize
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{Gap attribution breakdown with mechanistic explanations.}
+\label{tab:gap}
+\begin{tabular}{@{}lrrp{3.2cm}@{}}
+\toprule
+\textbf{Stage} & \textbf{TFLOPS} & \textbf{$\Delta$} & \textbf{Mechanism} \\
+\midrule
+L0: GEMM Peak & 101.53 & --- & Practical HW limit \\
+L1: Inference & 0.23 & $-$101.3 & BW-bound (AI$\approx$1) \\
+L2: SFT (no ckpt) & 27.63 & +27.4 & Batched F+B GEMM \\
+L3: SFT (ckpt) & 20.33 & $-$7.3 & Recompute overhead \\
+L4: GRPO Full & 2.35 & $-$18.0 & Gen-dominated wall-clock \\
+\midrule
+\textbf{Total Gap} & & \textbf{$-$99.2} & \textbf{97.7\% loss} \\
+\bottomrule
+\end{tabular}
+\end{table}

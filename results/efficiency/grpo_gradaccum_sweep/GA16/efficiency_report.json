@@ -1,0 +1,29 @@
+{
+  "num_params": 3085697024,
+  "peak_tflops_theoretical": 122.8,
+  "peak_tflops_practical": 101.53,
+  "total_steps": 2,
+  "valid_steps": 2,
+  "total_tokens": 85014,
+  "total_time_s": 225.37,
+  "tokens_per_s": 377.2,
+  "s_per_step": 112.684,
+  "achieved_tflops": 6.98,
+  "mfu_theoretical_pct": 5.69,
+  "mfu_practical_pct": 6.88,
+  "peak_mem_gb": 7.38,
+  "gpu_busy": {
+    "gpu_busy_pct": {
+      "mean": 97.9,
+      "max": 100.0,
+      "n": 215
+    },
+    "mem_use_pct": {
+      "mean": null,
+      "max": null,
+      "n": 0
+    }
+  },
+  "invalid_steps": 0,
+  "gpu_name": "AMD Radeon RX 7900 XTX"
+}

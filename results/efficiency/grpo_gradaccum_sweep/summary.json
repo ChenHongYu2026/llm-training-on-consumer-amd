@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "experiment": "Decoupled-batch GRPO: scale generation batch via grad_accum (pdb=1)",
+    "gpu": "RX 7900 XTX (RDNA3, 960 GB/s)",
+    "model": "Qwen2.5-3B-Instruct",
+    "framework": "hf",
+    "per_device_batch": 1,
+    "G_fixed": 2,
+    "max_steps": 10,
+    "max_completion_length": 256,
+    "note": "gen_batch = per_device_batch × grad_accum; pdb=1 → 训练反向恒 batch=1 (省显存), grad_accum 放大生成 batch"
+  },
+  "results": [
+    {
+      "grad_accum": 8,
+      "gen_batch": 8,
+      "tokens_per_s": 240.2,
+      "mfu_practical_pct": 4.38,
+      "s_per_step": 89.075,
+      "peak_mem_gb": 7.38,
+      "valid_steps": 2,
+      "tps_vs_ga8": 1.0
+    },
+    {
+      "grad_accum": 16,
+      "gen_batch": 16,
+      "tokens_per_s": 377.2,
+      "mfu_practical_pct": 6.88,
+      "s_per_step": 112.684,
+      "peak_mem_gb": 7.38,
+      "valid_steps": 2,
+      "tps_vs_ga8": 1.57
+    },
+    {
+      "grad_accum": 32,
+      "gen_batch": 32,
+      "tokens_per_s": 554.6,
+      "mfu_practical_pct": 10.11,
+      "s_per_step": 155.158,
+      "peak_mem_gb": 7.68,
+      "valid_steps": 2,
+      "tps_vs_ga8": 2.31
+    },
+    {
+      "grad_accum": 64,
+      "gen_batch": 64,
+      "tokens_per_s": 739.7,
+      "mfu_practical_pct": 13.49,
+      "s_per_step": 231.584,
+      "peak_mem_gb": 8.87,
+      "valid_steps": 2,
+      "tps_vs_ga8": 3.08
+    }
+  ],
+  "verdict": "✅ 解耦批处理突破成立: gen_batch 8→64 吞吐 240.2→739.7 tok/s (3.08×), 显存仅 8.87GB (对比②b gen_batch=32 OOM) → grad_accum 解耦规避了训练显存墙"
+}

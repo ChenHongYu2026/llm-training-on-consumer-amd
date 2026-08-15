@@ -1,0 +1,8 @@
+{
+  "adapter": null,
+  "n": 500,
+  "correct": 116,
+  "accuracy": 0.232,
+  "elapsed_s": 161.8,
+  "batch_size": 32
+}

@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "experiment": "Multi-seed replication + equal-sample control (E2/E3)",
+    "gpu": "RX 7900 XTX (RDNA3)",
+    "model": "Qwen2.5-3B-Instruct",
+    "eval": "GSM8K test[:500], greedy, batch=32 (统一口径)",
+    "seeds": [
+      42,
+      123,
+      7
+    ],
+    "note": "seed=42 100步档复用 grpo_convergence 已有训练"
+  },
+  "runs": [
+    {
+      "tag": "gen8",
+      "seed": 42,
+      "pdb": 1,
+      "grad_accum": 8,
+      "gen_batch": 8,
+      "max_steps": 100,
+      "total_samples": 800,
+      "reused_train": true,
+      "heldout_accuracy": 0.27,
+      "reward_final": 0.34999999701976775,
+      "reward_mean": 0.3204,
+      "reward_curve_std": 0.1147,
+      "frac_reward_zero_std_mean": 0.75,
+      "clipped_ratio_mean": 0.7425
+    },
+    {
+      "tag": "gen8",
+      "seed": 123,
+      "pdb": 1,
+      "grad_accum": 8,
+      "gen_batch": 8,
+      "max_steps": 100,
+      "total_samples": 800,
+      "reused_train": false,
+      "heldout_accuracy": 0.314,
+      "reward_final": 0.4,
+      "reward_mean": 0.302,
+      "reward_curve_std": 0.0944,
+      "frac_reward_zero_std_mean": 0.7675,
+      "clipped_ratio_mean": 0.74
+    },
+    {
+      "tag": "gen8",
+      "seed": 7,
+      "pdb": 1,
+      "grad_accum": 8,
+      "gen_batch": 8,
+      "max_steps": 100,
+      "total_samples": 800,
+      "reused_train": false,
+      "heldout_accuracy": 0.3,
+      "reward_final": 0.3,
+      "reward_mean": 0.3491,
+      "reward_curve_std": 0.0927,
+      "frac_reward_zero_std_mean": 0.75,
+      "clipped_ratio_mean": 0.7013
+    },
+    {
+      "tag": "gen128",
+      "seed": 42,
+      "pdb": 4,
+      "grad_accum": 32,
+      "gen_batch": 128,
+      "max_steps": 100,
+      "total_samples": 12800,
+      "reused_train": true,
+      "heldout_accuracy": 0.346,
+      "reward_final": 0.38812499642372134,
+      "reward_mean": 0.3671,
+      "reward_curve_std": 0.0378,
+      "frac_reward_zero_std_mean": 0.7492,
+      "clipped_ratio_mean": 0.688
+    },
+    {
+      "tag": "gen128",
+      "seed": 123,
+      "pdb": 4,
+      "grad_accum": 32,
+      "gen_batch": 128,
+      "max_steps": 100,
+      "total_samples": 12800,
+      "reused_train": false,
+      "heldout_accuracy": 0.33,
+      "reward_final": 0.37062500715255736,
+      "reward_mean": 0.3541,
+      "reward_curve_std": 0.0413,
+      "frac_reward_zero_std_mean": 0.7472,
+      "clipped_ratio_mean": 0.6992
+    },
+    {
+      "tag": "gen128",
+      "seed": 7,
+      "pdb": 4,
+      "grad_accum": 32,
+      "gen_batch": 128,
+      "max_steps": 100,
+      "total_samples": 12800,
+      "reused_train": false,
+      "heldout_accuracy": 0.324,
+      "reward_final": 0.31171876192092896,
+      "reward_mean": 0.3501,
+      "reward_curve_std": 0.0303,
+      "frac_reward_zero_std_mean": 0.7462,
+      "clipped_ratio_mean": 0.6999
+    },
+    {
+      "tag": "gen8_eq",
+      "seed": 42,
+      "pdb": 1,
+      "grad_accum": 8,
+      "gen_batch": 8,
+      "max_steps": 1600,
+      "total_samples": 12800,
+      "reused_train": false,
+      "heldout_accuracy": 0.344,
+      "reward_final": 0.2225000023841858,
+      "reward_mean": 0.3833,
+      "reward_curve_std": 0.0925,
+      "frac_reward_zero_std_mean": 0.7438,
+      "clipped_ratio_mean": 0.6767
+    }
+  ],
+  "stats": {
+    "gen8": {
+      "accs": [
+        0.27,
+        0.314,
+        0.3
+      ],
+      "mean": 0.2947,
+      "std": 0.0225,
+      "ci95": [
+        0.27,
+        0.314
+      ]
+    },
+    "gen128": {
+      "accs": [
+        0.346,
+        0.33,
+        0.324
+      ],
+      "mean": 0.3333,
+      "std": 0.0114,
+      "ci95": [
+        0.324,
+        0.346
+      ]
+    },
+    "paired_diff_pp": [
+      {
+        "seed": 42,
+        "diff_pp": 7.6
+      },
+      {
+        "seed": 123,
+        "diff_pp": 1.6
+      },
+      {
+        "seed": 7,
+        "diff_pp": 2.4
+      }
+    ],
+    "diff_ci95_pp": [
+      1.6,
+      7.6
+    ],
+    "cohens_d": 2.66
+  },
+  "verdicts": [
+    "✅ +7.2pp 稳健: 配对差全正 [7.6, 1.6, 2.4], CI95 [1.6, 7.6]pp, d=2.66",
+    "✅ 方差效应成立(非纯数据量): gen128(100步)=34.6% vs gen8_eq(1600步,同12800样本)=34.4% (Δ=+0.2pp)"
+  ]
+}

@@ -1,0 +1,141 @@
+% ═══════════════════════════════════════════════════════════
+% §3 Methodology
+% ═══════════════════════════════════════════════════════════
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Experimental Design Overview}
+
+We investigate three research questions through a progressive experimental pipeline:
+\begin{itemize}
+    \item \textbf{RQ1 (Framework Characterization)}: How do training frameworks compare in efficiency on consumer RDNA3?
+    \item \textbf{RQ2 (Gap Attribution)}: Where does the efficiency gap between hardware peak and real training originate?
+    \item \textbf{RQ3 (Tuning Optimization)}: Which hyperparameters most impact throughput, and what is the optimal configuration?
+\end{itemize}
+
+\noindent The pipeline proceeds in three phases: Phase~B1 addresses RQ1 via controlled framework comparison (Unsloth vs.\ HuggingFace, 3 seeds each); Phase~B2 addresses RQ2 via component-stacking gap attribution (L0\,--\,L4); Phase~C addresses RQ3 via a 10-configuration hyperparameter sweep. All phases share the same workload: GSM8K GRPO training on Qwen2.5-3B-Instruct (3.09B parameters). We select this workload because (1)~GRPO combines autoregressive generation with gradient updates, exercising both bandwidth-bound and compute-bound regimes; (2)~GSM8K's rule-based reward (correctness verification) eliminates LLM-judge variability; (3)~the 3B scale fits within 24\,GB consumer VRAM while remaining architecturally representative.
+
+\subsection{Dual-Peak MFU Measurement}
+\label{sec:dual-peak}
+
+\paragraph{Motivation.} RDNA3 implements matrix operations via WMMA microcoded vector instructions rather than dedicated tensor-core silicon. Unlike NVIDIA architectures where $P_{\text{GEMM}}/P_{\text{spec}} > 0.95$, this microcoded path cannot saturate the advertised peak under any workload. Reporting MFU solely against the spec-sheet value therefore introduces a fixed architectural bias that conflates hardware limitation with software inefficiency. To disentangle the two, we measure a \emph{practical peak} via a standalone GEMM benchmark and report dual MFU metrics.
+
+\paragraph{GEMM benchmark.} Listing~\ref{lst:gemm} shows the measurement kernel. We multiply two $8192\!\times\!8192$ BF16 matrices for 50 timed iterations (after 10 warmup), with explicit device synchronization to exclude host-side latency.
+
+\begin{lstlisting}[caption={Practical GEMM peak measurement (BF16, 8192$\times$8192).},label={lst:gemm}]
+def measure_gemm_peak(size=8192, warmup=10, iters=50):
+    a = torch.randn(size, size, dtype=torch.bfloat16,
+                    device="cuda")
+    b = torch.randn(size, size, dtype=torch.bfloat16,
+                    device="cuda")
+    for _ in range(warmup):
+        torch.matmul(a, b)
+    torch.cuda.synchronize()
+    t0 = time.perf_counter()
+    for _ in range(iters):
+        torch.matmul(a, b)
+    torch.cuda.synchronize()
+    elapsed = time.perf_counter() - t0
+    tflops = 2.0 * size**3 * iters / elapsed / 1e12
+    return tflops  # 101.53 (82.7% of 122.8 spec)
+\end{lstlisting}
+
+\noindent This yields $P_{\text{GEMM}} = 101.53$ TFLOPS, i.e., 82.7\% of the 122.8 TFLOPS spec-sheet value.
+
+\paragraph{MFU definitions.} We define two complementary metrics:
+\begin{equation}
+\mfutheo = \frac{6ND / \Delta t}{P_{\text{spec}}}, \qquad
+\mfuprac = \frac{6ND / \Delta t}{P_{\text{GEMM}}}
+\end{equation}
+
+\noindent where $N$ is total model parameters, $D$ is tokens processed in time $\Delta t$, $P_{\text{spec}} = 122.8$ TFLOPS, and $P_{\text{GEMM}} = 101.53$ TFLOPS. The systematic bias of reporting only \mfutheo{} is $1 - P_{\text{GEMM}}/P_{\text{spec}} \approx 17.3\%$. We recommend dual-peak reporting for any architecture where this ratio falls below 0.95.
+
+\paragraph{FLOPS estimation.} Training-step FLOPS use the $6ND$ approximation (forward $\approx 2ND$, backward $\approx 4ND$). Generation phases are reported separately as throughput (\toksec{}) since autoregressive decoding is bandwidth-bound and the $6ND$ model does not apply. Listing~\ref{lst:flops} shows the computation.
+
+\begin{lstlisting}[caption={FLOPS estimation for training vs.\ inference.},label={lst:flops}]
+def estimate_tflops(num_params, num_tokens, elapsed_s,
+                    mode="train"):
+    # train: forward(2ND) + backward(4ND) = 6ND
+    # inference: forward only = 2ND
+    coeff = 6.0 if mode == "train" else 2.0
+    return coeff * num_params * num_tokens / elapsed_s / 1e12
+\end{lstlisting}
+
+\subsection{Gap Attribution via Component Stacking}
+\label{sec:gap-attribution}
+
+\paragraph{Motivation.} Knowing the total efficiency gap (hardware peak vs.\ real training) is insufficient for practitioners; they need to know \emph{which component} causes the loss. We decompose the gap by progressively stacking training components and measuring achieved TFLOPS at each level, holding model, hardware, and precision constant.
+
+\paragraph{Levels.}
+\begin{itemize}
+    \item \textbf{L0}: Pure GEMM peak (101.53 TFLOPS, from Listing~\ref{lst:gemm})
+    \item \textbf{L1}: Autoregressive inference (generate, batch\,=\,1)
+    \item \textbf{L2}: SFT training step (forward + backward, no gradient checkpointing)
+    \item \textbf{L3}: SFT training step with gradient checkpointing
+    \item \textbf{L4}: Full GRPO training (generation + training loop)
+\end{itemize}
+
+\noindent Each level is measured independently under controlled conditions (same Qwen2.5-3B model, same GPU, BF16 precision). The waterfall decomposition yields: $\text{Total Gap} = P_{\text{GEMM}} - \text{TFLOPS}_{L4} = \sum_i \Delta_i$. For L1 (inference), we apply the $2ND$ coefficient; for L2\,--\,L4 (training), we apply $6ND$ (Listing~\ref{lst:flops}).
+
+\subsection{Training Pipeline and Framework Comparison}
+\label{sec:pipeline}
+
+\paragraph{Controlled comparison.} To isolate framework-level differences, both Unsloth and HuggingFace paths share identical: (1)~LoRA configuration ($r\!=\!32$, $\alpha\!=\!64$, 7 target modules); (2)~SFT adapter starting point; (3)~GSM8K training data; (4)~GRPO hyperparameters ($G\!=\!4$, batch\,=\,$1\!\times\!8$, completion\,$\leq$\,512). Listing~\ref{lst:framework} shows the two loading paths.
+
+\begin{lstlisting}[caption={Framework comparison: Unsloth vs.\ HuggingFace loading paths.},label={lst:framework}]
+if framework == "unsloth":
+    from unsloth import FastLanguageModel
+    model, tok = FastLanguageModel.from_pretrained(
+        BASE, load_in_4bit=False, dtype=torch.bfloat16)
+    model = FastLanguageModel.get_peft_model(
+        model, r=32, lora_alpha=64,
+        target_modules=["q_proj","k_proj","v_proj",
+                        "o_proj","gate_proj","up_proj",
+                        "down_proj"])
+else:  # HuggingFace native
+    model = AutoModelForCausalLM.from_pretrained(
+        BASE, torch_dtype=torch.bfloat16,
+        attn_implementation="eager")  # AMD compatible
+    model = get_peft_model(model, LoraConfig(
+        r=32, lora_alpha=64,
+        target_modules=[...same 7 modules...]))
+\end{lstlisting}
+
+\noindent Each configuration runs 100 GRPO steps with 3 independent seeds (42, 123, 7). We report mean\,$\pm$\,std and assess significance via Welch's $t$-test.
+
+\paragraph{Hyperparameter sweep.} Phase~C sweeps four knobs on Unsloth BF16 (50 steps each): $G \in \{2,4,8\}$, effective batch $\in \{1\!\times\!4,\, 1\!\times\!8,\, 2\!\times\!4\}$, gradient checkpointing on/off, and max completion length $\in \{256, 512, 1024\}$, yielding 10 configurations including the best-combination candidate.
+
+\subsection{Measurement Quality Control}
+\label{sec:validity}
+
+Any efficiency measurement must verify that the training loop is performing genuine parameter updates. A throughput figure collected while gradients are zero (e.g., due to a misconfigured accumulation flag) reflects idle computation, not learning. As standard measurement quality control, we enforce a \textbf{Valid Measurement} criterion on every training step:
+
+\begin{equation}
+\text{Valid}(t) \iff \text{grad\_norm}(t) > 0 \;\wedge\; \text{tokens}(t) > 0 \;\wedge\; \Delta t > 0
+\end{equation}
+
+\noindent Listing~\ref{lst:validity} shows the implementation. Invalid data points are flagged and excluded from all efficiency statistics. We report the validity rate (valid/total steps) alongside efficiency metrics; all results in this paper achieve 100\% validity.
+
+\begin{lstlisting}[caption={Per-step measurement validity check.},label={lst:validity}]
+def is_valid_step(grad_norm, num_tokens, elapsed_s):
+    """Reject steps where no learning occurred."""
+    if num_tokens <= 0 or elapsed_s <= 0:
+        return False
+    if grad_norm is not None and grad_norm <= 0:
+        return False  # zero gradient: no update
+    return True
+\end{lstlisting}
+
+\subsection{Experimental Platform}
+\label{sec:platform}
+
+All experiments run on a single consumer-grade GPU (Table~\ref{tab:platform}). The ROCm environment requires two settings for RDNA3 compatibility: \texttt{HSA\_OVERRIDE\_GFX\_VERSION=11.0.0} (enabling hipBLASLt kernel dispatch) and \texttt{HIP\_VISIBLE\_DEVICES=0}. Software versions are pinned (Table~\ref{tab:platform}) to ensure reproducibility; we note that Unsloth and ROCm evolve rapidly, so absolute numbers are version-specific while relative comparisons and architectural insights remain generalizable.
+
+\input{tables/tab_platform}
+
+\subsection{Statistical Methods}
+\label{sec:statistics}
+
+For framework comparison (RQ1), we run $\geq$3 independent seeds and report mean\,$\pm$\,std. Statistical significance is assessed via Welch's $t$-test (unequal variance) with Cohen's $d$ for effect size. For the tuning sweep (RQ3), we report single-run results as exploratory findings, noting that the large effect sizes observed ($>$30\% differences) far exceed the measurement variance established in B1 ($\sigma \approx 2\%$).
+
+\paragraph{Measurement-caliber correction (post-hoc audit).} A post-experiment audit revealed that the initial profiler computed tokens/s by summing TRL's \emph{cumulative} \texttt{num\_tokens} across logging intervals, systematically inflating absolute throughput (by 10.4--10.6$\times$ for the 100-step B1 runs and 5.5$\times$ for the 50-step Phase-C runs; the factor scales with the number of logging intervals). All absolute throughput and MFU values in this paper use the corrected caliber: final cumulative token count divided by total wall time, cross-checked against per-step token counts reconstructed from completion-length logs. Relative comparisons are unaffected (all runs within a phase share identical logging configuration, so the inflation factor cancels); the corrected raw values are archived alongside the original measurements (\texttt{B1\_C\_corrected\_summary.json}) for full traceability. We report this correction openly as part of our validity protocol: measurement-pipeline bugs of this kind are precisely what per-step validity checking and post-hoc auditing are designed to catch.

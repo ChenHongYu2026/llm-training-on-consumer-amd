@@ -1,0 +1,119 @@
+{
+  "datasets": {
+    "lawbench_cn": {
+      "baseline": {
+        "legal_accuracy": 0.025,
+        "legal_f1": 0.021769230769230766,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-sft": {
+        "legal_accuracy": 0.025,
+        "legal_f1": 0.012316849816849818,
+        "format_compliance": 0.34,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-grpo-cn": {
+        "legal_accuracy": 0.035,
+        "legal_f1": 0.020769230769230772,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-grpo-multi": {
+        "legal_accuracy": 0.035,
+        "legal_f1": 0.022088235294117648,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      }
+    },
+    "casehold_us": {
+      "baseline": {
+        "legal_accuracy": 0.71,
+        "legal_f1": 0.0061929567405608725,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.805,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-sft": {
+        "legal_accuracy": 0.76,
+        "legal_f1": 0.615,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.645,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-grpo-cn": {
+        "legal_accuracy": 0.735,
+        "legal_f1": 0.007305268805268805,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.845,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-grpo-multi": {
+        "legal_accuracy": 0.7,
+        "legal_f1": 0.00995198454646129,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.855,
+        "citation_eu": 0.0,
+        "cross_jur_confusion": 0.0
+      }
+    },
+    "gdpr_eu": {
+      "baseline": {
+        "legal_accuracy": 0.28,
+        "legal_f1": 0.2,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.11333333333333333,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-sft": {
+        "legal_accuracy": 0.20666666666666667,
+        "legal_f1": 0.0,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.20666666666666667,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-grpo-cn": {
+        "legal_accuracy": 0.26,
+        "legal_f1": 0.18666666666666668,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.13333333333333333,
+        "cross_jur_confusion": 0.0
+      },
+      "legal-grpo-multi": {
+        "legal_accuracy": 0.2866666666666667,
+        "legal_f1": 0.21422222222222223,
+        "format_compliance": 0.0,
+        "citation_cn": 0.0,
+        "citation_us": 0.0,
+        "citation_eu": 0.16,
+        "cross_jur_confusion": 0.0
+      }
+    }
+  },
+  "summary": {}
+}

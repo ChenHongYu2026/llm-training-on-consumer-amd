@@ -1,0 +1,114 @@
+% ═══════════════════════════════════════════════════════════
+% Characterizing and Optimizing LLM Post-Training Efficiency
+% on Consumer AMD RDNA3 GPUs with Unsloth
+%
+% Format: Single-column academic paper (arXiv preprint style)
+% Compile: pdflatex main && bibtex main && pdflatex main && pdflatex main
+% ═══════════════════════════════════════════════════════════
+
+\documentclass[11pt]{article}
+
+% ═══════════════════════════════════════════════════════════
+% Page layout & fonts
+% ═══════════════════════════════════════════════════════════
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}           % Times font
+
+% ═══════════════════════════════════════════════════════════
+% Citations & references
+% ═══════════════════════════════════════════════════════════
+\usepackage[round,authoryear,sort&compress]{natbib}
+
+% ═══════════════════════════════════════════════════════════
+% Tables & figures
+% ═══════════════════════════════════════════════════════════
+\usepackage{booktabs}       % Professional tables
+\usepackage{multirow}       % Multi-row cells
+\usepackage{array}          % Column formatting
+\usepackage{graphicx}       % External figures
+\usepackage{placeins}       % \FloatBarrier
+\usepackage{xcolor}         % Colors
+\usepackage{subcaption}     % Subfigures
+
+% ═══════════════════════════════════════════════════════════
+% Math
+% ═══════════════════════════════════════════════════════════
+\usepackage{amsmath,amssymb}
+
+% ═══════════════════════════════════════════════════════════
+% Code listings
+% ═══════════════════════════════════════════════════════════
+\usepackage{listings}
+\lstset{
+  language=Python,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  captionpos=b,
+}
+
+% ═══════════════════════════════════════════════════════════
+% Hyperlinks (load last)
+% ═══════════════════════════════════════════════════════════
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+% ═══════════════════════════════════════════════════════════
+% Custom commands
+% ═══════════════════════════════════════════════════════════
+\newcommand{\mfutheo}{\ensuremath{\text{MFU}_{\text{theo}}}}
+\newcommand{\mfuprac}{\ensuremath{\text{MFU}_{\text{prac}}}}
+\newcommand{\toksec}{\textrm{tok/s}}
+
+% ═══════════════════════════════════════════════════════════
+% Title and authors
+% ═══════════════════════════════════════════════════════════
+\title{Characterizing and Optimizing LLM Post-Training Efficiency\\on Consumer AMD RDNA3 GPUs with Unsloth}
+
+\author{
+  Hongyu Chen\\
+  \url{https://github.com/ChenHongYu2026}
+}
+
+\date{}
+
+\begin{document}
+\emergencystretch=1em
+\maketitle
+\vspace{-2em}
+\begin{center}\small
+\textbf{DOI:} \href{https://doi.org/10.5281/zenodo.21695686}{10.5281/zenodo.21695686} \quad
+\textbf{Code:} \href{https://github.com/ChenHongYu2026/llm-training-on-consumer-amd}{github.com/ChenHongYu2026/llm-training-on-consumer-amd}
+\end{center}
+\vspace{1em}
+
+% ═══════════════════════════════════════════════════════════
+% Abstract
+% ═══════════════════════════════════════════════════════════
+\begin{abstract}
+Consumer-grade AMD GPUs lack dedicated tensor cores, yet serve a growing community of LLM practitioners. We present a systematic efficiency characterization of LLM post-training (SFT and GRPO) on an AMD RX 7900 XTX (RDNA3) using the Unsloth framework. We propose a \emph{dual-peak MFU methodology} that reports utilization against both the theoretical spec-sheet peak (122.8 TFLOPS) and a measured GEMM practical peak (101.53 TFLOPS), revealing a 17.3\% systematic bias in conventional reporting. Through component-stacking gap attribution, we decompose the 97.7\% efficiency gap from GEMM peak to full GRPO training into interpretable stages, showing that autoregressive generation dominates the end-to-end loss. Framework comparison across 3 seeds shows Unsloth BF16 achieves 5.2\% higher throughput than HuggingFace native (129 vs 123 tok/s, steady-state corrected caliber), while 4-bit quantization is net-negative on RDNA3 ($-$40.7\%). A systematic hyperparameter sweep identifies an optimal recipe (G=2, batch=$2\!\times\!4$, seq=256) achieving 179 tok/s ($+$36\% over defaults) at 3.3\% practical MFU. All measurements pass a formal validity protocol (grad\_norm$>$0) and a post-hoc audit that corrected a profiler token-accounting bug (cumulative-count inflation up to 10.6$\times$), ensuring all reported throughput reflects genuine training under a verified measurement caliber.
+\end{abstract}
+
+% ═══════════════════════════════════════════════════════════
+% Paper sections (modular)
+% ═══════════════════════════════════════════════════════════
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_methodology}
+\input{sections/04_results_char}
+\input{sections/05_results_tuning}
+\input{sections/06_validation}
+\input{sections/07_discussion}
+\input{sections/08_conclusion}
+
+% ═══════════════════════════════════════════════════════════
+% References
+% ═══════════════════════════════════════════════════════════
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

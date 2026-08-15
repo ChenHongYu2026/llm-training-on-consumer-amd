@@ -1,0 +1,13 @@
+% ═══════════════════════════════════════════════════════════
+% §8 Conclusion
+% ═══════════════════════════════════════════════════════════
+\section{Conclusion}
+\label{sec:conclusion}
+
+We present a systematic efficiency characterization of LLM post-training on consumer AMD RDNA3 hardware, addressing three research questions through controlled experiments on a single RX 7900 XTX.
+
+For RQ1 (framework comparison), Unsloth BF16 achieves a statistically significant but practically modest 5.2\% throughput advantage over HuggingFace native, far below the 2$\times$ speedup reported on data-center CDNA hardware. More strikingly, 4-bit quantization \emph{reduces} throughput by 40.7\% on this architecture, inverting the memory-saving narrative established on NVIDIA platforms. For RQ2 (gap attribution), component-stacking analysis reveals that autoregressive generation's bandwidth bottleneck dominates the 97.7\% total end-to-end efficiency gap, while the training step itself recovers to 27.2\% practical MFU once adequately batched. For RQ3 (tuning optimization), sequence length and generation count emerge as dominant levers ($+$30\% each), and a combined optimal configuration achieves a 36\% throughput improvement over defaults (178.5 \toksec{}, 3.25\% \mfuprac{}, 12.1\,GB VRAM) --- with follow-up work showing that scaling the decoupled generation batch further raises throughput to 795.5 \toksec{}.
+
+Methodologically, the dual-peak MFU framework exposes a 17.3\% systematic bias in conventional reporting for architectures without dedicated tensor cores, providing a fairer basis for cross-architecture efficiency comparison. Our open-source profiler implements this methodology alongside per-step validity checking and a post-hoc measurement audit (which caught and corrected a cumulative-token-count inflation in our own initial pipeline), enabling reproducible efficiency studies on non-standard hardware.
+
+\paragraph{Future Work.} Three questions arise directly from our findings. First, RDNA4's dedicated AI accelerators (2 per CU, native FP8) may eliminate the dual-peak bias entirely; measuring $P_{\text{GEMM}}/P_{\text{spec}}$ on that architecture would test whether our methodology remains necessary. Second, scaling to 7B--14B models within 24\,GB VRAM (via deeper quantization or model parallelism) introduces new efficiency tradeoffs that our 3B findings cannot predict. Third, integrating accuracy-aware metrics (tokens-per-accuracy-point) would bridge the gap between systems efficiency and training effectiveness, answering not just "how fast?" but "how efficiently does the model learn?"

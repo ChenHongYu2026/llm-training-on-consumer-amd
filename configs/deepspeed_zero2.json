@@ -1,0 +1,71 @@
+{
+  "_comment": "DeepSpeed ZeRO-2 配置 — RX 7900XTX 24GB 优化版。Stage 2 分片优化器状态 + 梯度，保留参数不分片以减少通信开销（单卡场景通信为零）。",
+
+  "train_batch_size": "auto",
+  "train_micro_batch_size_per_gpu": "auto",
+  "gradient_accumulation_steps": "auto",
+
+  "zero_optimization": {
+    "stage": 2,
+    "offload_optimizer": {
+      "device": "cpu",
+      "pin_memory": true,
+      "_comment_cpu_offload": "PagedAdamW 优化器状态卸载到 CPU，释放 ~4GB GPU 显存"
+    },
+    "offload_param": {
+      "device": "none",
+      "_comment": "参数不离散到 CPU，保持在 GPU 上以保证前向速度"
+    },
+    "allgather_partitions": true,
+    "allgather_bucket_size": 2e8,
+    "overlap_comm": false,
+    "reduce_scatter": true,
+    "reduce_bucket_size": 2e8,
+    "contiguous_gradients": true,
+    "round_robin_gradients": true
+  },
+
+  "fp16": {
+    "enabled": false,
+    "_comment": "7900XTX 原生支持 BF16，关闭 FP16 避免精度损失"
+  },
+
+  "bf16": {
+    "enabled": true
+  },
+
+  "gradient_clipping": 1.0,
+
+  "optimizer": {
+    "type": "AdamW",
+    "params": {
+      "lr": "auto",
+      "betas": [0.9, 0.999],
+      "eps": 1e-8,
+      "weight_decay": 0.01
+    }
+  },
+
+  "scheduler": {
+    "type": "WarmupDecayLR",
+    "params": {
+      "warmup_min_lr": 0,
+      "warmup_max_lr": "auto",
+      "warmup_num_steps": "auto",
+      "total_num_steps": "auto"
+    }
+  },
+
+  "activation_checkpointing": {
+    "partition_activations": true,
+    "cpu_checkpointing": false,
+    "number_checkpoints": null,
+    "synchronize_checkpoint_boundary": false,
+    "profile": false,
+    "_comment": "Gradient Checkpointing: 以 ~20% 训练减速换取 ~40% 显存释放。GRPO 4 路并行生成的关键支撑。"
+  },
+
+  "wall_clock_breakdown": false,
+
+  "steps_per_print": 10
+}

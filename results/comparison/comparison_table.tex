@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\centering
+\caption{Comparison of legal reasoning performance across four experiment groups. Metrics include legal accuracy (Acc), format compliance rate (Fmt), citation recall by jurisdiction (Cit-CN/US/EU), and cross-jurisdiction confusion rate (Conf). Bold indicates best result per metric.}
+\label{tab:comparison}
+\small
+\begin{tabular}{lccccccc}
+\toprule
+Model & Acc & F1 & Fmt & Cit-CN & Cit-US & Cit-EU & Conf \\
+\midrule
+    Baseline (Zero-shot) & 0.025 & 0.022 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+    Legal-SFT-Only & 0.025 & 0.012 & 0.340 & 0.000 & 0.000 & 0.000 & 0.000 \\
+    Legal-GRPO-CN & 0.035 & 0.021 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+    Legal-GRPO-Multi (Ours) & 0.035 & 0.022 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\end{table*}

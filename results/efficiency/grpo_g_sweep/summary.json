@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "experiment": "GRPO G-way Generation Scaling (real training loop)",
+    "gpu": "RX 7900 XTX (RDNA3, 960 GB/s)",
+    "model": "Qwen2.5-3B-Instruct",
+    "framework": "hf",
+    "max_steps": 25,
+    "max_completion_length": 256,
+    "note": "num_generations G = 生成阶段 batch 维度; tokens/s 由 EfficiencyProfiler(6ND) 采集"
+  },
+  "results": [
+    {
+      "G": 2,
+      "tokens_per_s": 480.3,
+      "mfu_practical_pct": 8.76,
+      "mfu_theoretical_pct": 7.24,
+      "achieved_tflops": 8.89,
+      "s_per_step": 88.471,
+      "peak_mem_gb": 7.39,
+      "valid_steps": 5,
+      "invalid_steps": 0,
+      "gpu_busy_mean": 98.6,
+      "tps_vs_G2": 1.0
+    },
+    {
+      "G": 4,
+      "tokens_per_s": 489.1,
+      "mfu_practical_pct": 8.92,
+      "mfu_theoretical_pct": 7.37,
+      "achieved_tflops": 9.06,
+      "s_per_step": 87.668,
+      "peak_mem_gb": 7.38,
+      "valid_steps": 5,
+      "invalid_steps": 0,
+      "gpu_busy_mean": 98.7,
+      "tps_vs_G2": 1.02
+    },
+    {
+      "G": 8,
+      "tokens_per_s": 496.4,
+      "mfu_practical_pct": 9.05,
+      "mfu_theoretical_pct": 7.48,
+      "achieved_tflops": 9.19,
+      "s_per_step": 87.635,
+      "peak_mem_gb": 7.38,
+      "valid_steps": 5,
+      "invalid_steps": 0,
+      "gpu_busy_mean": 98.6,
+      "tps_vs_G2": 1.03
+    },
+    {
+      "G": 16,
+      "error": "returncode=1"
+    }
+  ]
+}

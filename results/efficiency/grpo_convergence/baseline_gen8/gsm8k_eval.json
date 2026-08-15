@@ -1,0 +1,7 @@
+{
+  "adapter": "/home/luischen/文档/post-training-01/results/efficiency/grpo_convergence/baseline_gen8/final_adapter",
+  "n": 500,
+  "correct": 141,
+  "accuracy": 0.282,
+  "elapsed_s": 6671.4
+}

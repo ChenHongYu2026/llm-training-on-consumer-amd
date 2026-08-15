@@ -1,0 +1,7 @@
+{
+  "adapter": "/home/luischen/文档/post-training-01/results/efficiency/grpo_convergence/best_gen128/final_adapter",
+  "n": 500,
+  "correct": 177,
+  "accuracy": 0.354,
+  "elapsed_s": 6579.7
+}

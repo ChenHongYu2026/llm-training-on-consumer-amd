@@ -1,0 +1,24 @@
+% Table 1: Hardware and software configuration
+\begin{table}[t]
+\centering
+\small
+\caption{Hardware and software configuration.}
+\label{tab:platform}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+GPU & AMD RX 7900 XTX 24GB (RDNA3) \\
+Memory BW & 960 GB/s GDDR6 \\
+CPU & AMD Ryzen 7 9800X3D \\
+ROCm & 7.2.4 \\
+PyTorch & 2.12.1+rocm7.2 \\
+Unsloth & 2026.7.4 \\
+\midrule
+Model & Qwen2.5-3B-Instruct (3.09B) \\
+Architecture & GQA (16h, 2 KV), d=2048 \\
+Workload & GSM8K GRPO (rule reward) \\
+LoRA & r=32, $\alpha$=64, 7 modules \\
+\bottomrule
+\end{tabular}
+\end{table}

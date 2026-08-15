@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "purpose": "SFOC regime phase diagram (docs/21 §10.4)",
+    "timestamp": "2026-07-28T10:28:14",
+    "criterion": "tau_net = |M| / (mu_h*slots - mu0*|D|); supply-dominated if denominator<=0",
+    "mu0_range": [
+      0.002,
+      0.008
+    ],
+    "mu_h": 0.0268,
+    "harvest_slots_v1": 51,
+    "mu0_sources": {
+      "slope": 0.002,
+      "reencounter_deep_pooled": 0.0076,
+      "reencounter_ci95": [
+        0.0066,
+        0.0086
+      ],
+      "dynamics_plateau": 0.0053,
+      "v1_arm_outlier_disclosed": 0.0197,
+      "audit": "v2 纯零cell定义+全臂披露 (docs/21 §10.5)"
+    },
+    "final_form": "supply-dominated <-> balance continuum + scheduler-constraint capping theorem (docs/21 §11.3)",
+    "cooldown_capping": "harvest strength capped at mu_h*(|M|/N)*M_b under cooldown rotation",
+    "investment_verdict": "three regimes, no positive return; theorem conjecture 2/3 closed (docs/21 §11.3 clause 3)"
+  },
+  "points": [
+    {
+      "tag": "full_pool_7473",
+      "pool": 7473,
+      "D_abs": 3034,
+      "M_abs": 3423,
+      "supply_mu0D_range": [
+        6.1,
+        24.3
+      ],
+      "harvest_rate": 1.37,
+      "regime": "supply-dominated",
+      "fzs_shape": "declining (0.592->0.541)",
+      "delta_heldout_sfc_vs_v1_pp": -6.4,
+      "delta_flux_sfc_vs_v1_pct": -17,
+      "test": "unpaired z=2.05",
+      "verdict": "investment net harm"
+    },
+    {
+      "tag": "small_pool_500",
+      "pool": 500,
+      "D_abs": 260,
+      "M_abs": 186,
+      "supply_mu0D_range": [
+        0.52,
+        2.1
+      ],
+      "harvest_rate": 1.37,
+      "regime": "balance band",
+      "fzs_shape": "plateau (0.572->0.573, late-mid=+0.0pp)",
+      "delta_heldout_sfc_vs_v1_pp": -6.6,
+      "delta_flux_sfc_vs_v1_pct": -10.5,
+      "test": "McNemar chi2=12.64 p<0.001 (57/24)",
+      "verdict": "investment net harm",
+      "note": "跨平衡线; fzs 平台反推有效 mu0≈0.0053"
+    },
+    {
+      "tag": "small_pool_200",
+      "pool": 200,
+      "D_abs": 88.8,
+      "M_abs": 83.5,
+      "supply_mu0D_range": [
+        0.18,
+        0.71
+      ],
+      "harvest_rate_effective": 0.72,
+      "regime": "rotation self-balance (empirical, replaces predicted depletion)",
+      "fzs_shape": "high plateau (0.732->0.727, from step 5)",
+      "delta_heldout_sfc_vs_v1_pp": -0.8,
+      "delta_flux_sfc_vs_v1_pct": 4.5,
+      "test": "McNemar chi2=0.18 not significant (v1obj_sfcerr/v1err_sfcobj = 27/23)",
+      "verdict": "investment inert (candidates depleted), harmless but not beneficial"
+    }
+  ],
+  "practical_findings": {
+    "data_efficiency": "no-loss lower bound in (200, 500] prompts: pool=500 45.4% (no loss vs full 45.6%); pool=200 37.4% (-8pp)",
+    "calibration_density": "p_hat bias vanishes with obs count n: n=4.5 -> 1.54x overestimate; n=72.8 -> calibrated (2.8pp)",
+    "rollout_independence": "rho_waterfill=-0.023, rho_G2=-0.003 (E-G0a direct measurement)",
+    "investment_trend": "sfc vs v1 flux Delta trending across 3 regimes: -17% -> -10.5% -> +4.5% (harm decays with selection freedom)",
+    "mu0_four_paths": "slope 0.002 -> plateau500 0.0053 -> reencounter 0.0076[CI 0.0066,0.0086] -> plateau200 0.0081 (upward drift = time-varying lambda, docs/21 §4)",
+    "scheduler_capping": "cooldown rotation caps harvest at mu_h*(|M|/N)*M_b; N/cooldown/M_b互斥 depletion regime structurally unreachable on fixed datasets"
+  }
+}

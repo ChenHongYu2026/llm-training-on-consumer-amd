@@ -1,0 +1,8 @@
+{
+  "adapter": "/home/luischen/文档/post-training-01/results/efficiency/zsbr/zsbr_v1_s7/final_adapter",
+  "n": 500,
+  "correct": 207,
+  "accuracy": 0.414,
+  "elapsed_s": 283.9,
+  "batch_size": 32
+}

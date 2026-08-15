@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "timestamp": "2026-07-26T00:43:49",
+    "n_points_fit": 8,
+    "max_time_resid_pct": 6.02,
+    "loopback_triggered": false,
+    "empirical_wall": {
+      "max_feasible_gen_batch": 256,
+      "oom_configs": [
+        "pdb4_ga96(gen384)",
+        "pdb4_ga128(gen512)"
+      ],
+      "note": "expandable_segments 已启用, OOM=真容量墙; 显存模型需补瞬时尖峰+非torch开销项"
+    }
+  },
+  "blind_prediction_check": [
+    {
+      "pdb": 4,
+      "ga": 96,
+      "gen_batch": 384,
+      "bwd": 4,
+      "pred_T_step_s": 164.62,
+      "pred_steady_tps": 829.7,
+      "pred_peak_mem_gb": 20.49,
+      "pred_oom": false,
+      "actual": "OOM",
+      "hit": false,
+      "note": "预测可跑但实测OOM——显存模型漏算瞬时尖峰+非torch开销"
+    },
+    {
+      "pdb": 4,
+      "ga": 128,
+      "gen_batch": 512,
+      "bwd": 4,
+      "pred_T_step_s": 215.89,
+      "pred_steady_tps": 843.6,
+      "pred_peak_mem_gb": 25.13,
+      "pred_oom": true,
+      "actual": "OOM",
+      "hit": true,
+      "note": "OOM预测命中"
+    }
+  ],
+  "refit_time_model": {
+    "a1": 10.556,
+    "a2": 0.3787,
+    "a3": 0.1299,
+    "resid_pct": [
+      -6.02,
+      0.43,
+      1.9,
+      -1.29,
+      1.76,
+      3.94,
+      1.39,
+      -2.42
+    ]
+  },
+  "refit_mem_model": {
+    "m0": 7.026,
+    "mg": 0.03236,
+    "mb": 0.2665,
+    "resid_gb": [
+      0.227,
+      0.227,
+      0.227,
+      -0.567,
+      -0.081,
+      -0.091,
+      -0.509,
+      0.567
+    ]
+  },
+  "argmax_check": {
+    "theory_best_empirical_wall": {
+      "pdb": 8,
+      "ga": 32,
+      "gen_batch": 256,
+      "bwd": 8,
+      "pred_T_step_s": 111.67,
+      "pred_steady_tps": 815.3,
+      "pred_peak_mem_gb": 16.38,
+      "pred_oom": false
+    },
+    "theory_best_model_wall_obsolete": {
+      "pdb": 8,
+      "ga": 48,
+      "gen_batch": 384,
+      "bwd": 8,
+      "pred_T_step_s": 162.23,
+      "pred_steady_tps": 841.8,
+      "pred_peak_mem_gb": 20.52,
+      "pred_oom": false
+    },
+    "actual_best": {
+      "config": "pdb4_gen256",
+      "steady_tps": 795.5,
+      "peak_mem_gb": 15.82
+    },
+    "actual_vs_theory_max_pct": 97.6,
+    "asymptotic_tps_bwd4": 864.8,
+    "asymptotic_tps_no_micro": 939.0,
+    "actual_vs_asymptotic_pct": 92.0
+  },
+  "mfu_waterfall": {
+    "config": "pdb4_gen256",
+    "T_step_s_model": 115.83,
+    "T_step_s_actual": 114.24,
+    "share_const_pct": 9.1,
+    "share_Bg_marginal_pct": 83.7,
+    "share_microbatch_overhead_pct": 7.2,
+    "mfu_actual_pct": 14.51,
+    "note": "share_microbatch→0 即 pdb→Bg(全批反向)的理论上限方向; share_const 为不可批开销"
+  }
+}

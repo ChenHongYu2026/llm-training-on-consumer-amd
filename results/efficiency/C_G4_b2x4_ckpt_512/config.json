@@ -1,0 +1,20 @@
+{
+  "framework": "unsloth",
+  "max_steps": 50,
+  "num_generations": 4,
+  "per_device_batch": 2,
+  "grad_accum": 4,
+  "max_completion_length": 512,
+  "max_prompt_length": 256,
+  "lr": 1e-05,
+  "beta": 0.1,
+  "temperature": 0.8,
+  "seed": 42,
+  "output": "/home/luischen/文档/post-training-01/results/efficiency/C_G4_b2x4_ckpt_512",
+  "model_path": "/home/luischen/models/Qwen2.5-3B-Instruct",
+  "no_sft_adapter": true,
+  "smoke_test": false,
+  "no_profiler": false,
+  "no_4bit": true,
+  "no_gradient_checkpointing": false
+}

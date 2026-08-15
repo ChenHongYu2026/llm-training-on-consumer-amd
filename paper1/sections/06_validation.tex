@@ -1,0 +1,24 @@
+% ═══════════════════════════════════════════════════════════
+% §6 Validation & Threats to Validity
+% ═══════════════════════════════════════════════════════════
+\FloatBarrier
+\section{Validation \& Threats to Validity}
+\label{sec:validation}
+
+\subsection{Internal Validity}
+
+The framework comparison (RQ1) rests on solid statistical ground: three independent seeds yield coefficients of variation below 2\% for both Unsloth ($\sigma$=2.6 \toksec{}) and HuggingFace ($\sigma$=0.8 \toksec{}), and the 5.2\% inter-framework difference produces Cohen's $d>3$, well beyond conventional significance thresholds. We are confident that the observed advantage is real, even if modest. The measurement-caliber correction (\S\ref{sec:statistics}) rescales all absolute values uniformly within each phase and therefore does not affect these relative conclusions.
+
+The tuning sweep (RQ3) presents a more nuanced picture. Single-seed configurations with effect sizes exceeding 30\% are robust: the measurement variance established in B1 ($\sigma \approx 2\%$) provides a 15$\times$ safety margin against spurious findings. However, the interaction effect between G and sequence length (G=2 outperforming G=4 by only $\sim$4\% in the combined configuration) approaches the noise floor. We report this interaction as a hypothesis requiring multi-seed confirmation rather than an established fact.
+
+Two methodological approximations warrant acknowledgment. The $6ND$ FLOPS model assumes all parameters participate equally in forward and backward computation; with LoRA training only 1.9\% of parameters, the backward-pass FLOPS are overestimated. This inflates absolute MFU values but does not affect \emph{relative} comparisons between configurations, which is our primary use case. Additionally, all measurements span 50--100 training steps; thermal throttling, memory fragmentation, and optimizer state growth that may emerge over thousands of steps are not captured.
+
+\subsection{External Validity}
+
+Our findings are scoped to a specific architectural intersection: RDNA3 (gfx1100), 3B-parameter models, and short-completion tasks. Each dimension of this scope carries transfer risk. RDNA4 introduces dedicated AI accelerators (2 per CU, native FP8) that fundamentally change the compute landscape; the dual-peak bias and quantization penalty we observe may not persist on that architecture. Scaling to 7B+ models alters GEMM aspect ratios and attention's memory footprint, potentially shifting the compute-bandwidth balance that underlies our gap attribution. Finally, GSM8K's short mathematical completions ($\leq$256 tokens) represent a favorable case for the sequence-length optimization; tasks requiring long-form generation (e.g., open-ended writing at 1024+ tokens) would see diminished returns from this lever.
+
+The software stack (ROCm 7.2, Unsloth 2026.7.4, PyTorch 2.12.1) evolves rapidly. Absolute throughput values will shift with future releases. We argue, however, that the \emph{architectural insights} (bandwidth bottleneck dominance, quantization penalty mechanism, framework gain ceiling) and the \emph{methodology} (dual-peak MFU, component stacking, validity protocol) retain value independent of specific software versions.
+
+\subsection{Construct Validity}
+
+MFU measures hardware utilization, not learning efficiency. A configuration achieving 3.25\% \mfuprac{} is not necessarily producing a better-trained model than one at 2.3\%; the relationship between throughput and convergence speed (tokens-per-accuracy-point) is mediated by gradient quality, reward signal strength, and optimization dynamics that our profiler does not capture. We position this work as a \emph{systems efficiency} characterization: it answers "how fast can this hardware train?" rather than "how well does the resulting model perform?" Bridging these two questions through accuracy-aware efficiency metrics remains an important direction for future work.

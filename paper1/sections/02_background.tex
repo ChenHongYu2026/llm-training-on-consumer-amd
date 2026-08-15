@@ -1,0 +1,17 @@
+% ═══════════════════════════════════════════════════════════
+% §2 Background & Related Work
+% ═══════════════════════════════════════════════════════════
+\section{Background \& Related Work}
+\label{sec:background}
+
+\subsection{RDNA3 Architecture and MFU Challenges}
+
+AMD's RDNA3 architecture (gfx1100) implements matrix operations through WMMA instructions that operate on wavefront-level (32/64 threads) vector registers, unlike NVIDIA's dedicated Tensor Cores which execute matrix multiply-accumulate in dedicated silicon. This microcoded approach means the advertised 122.8 TFLOPS BF16 peak represents a theoretical upper bound achievable only under ideal instruction scheduling; realistic GEMM workloads achieve 82.7\% of this peak (101.53 TFLOPS in our measurement). The 960 GB/s GDDR6 bandwidth (vs 2--3 TB/s HBM on NVIDIA data-center cards or 5.3--8 TB/s on AMD Instinct MI300X/MI355X) further constrains memory-bound operations~\citep{amd2022rdna3}.
+
+\subsection{LLM Training Efficiency Studies}
+
+Model FLOPS Utilization (MFU), defined as the ratio of achieved FLOPS to hardware peak, has become the standard efficiency metric for LLM training. The $6ND$ approximation ($N$=parameters, $D$=tokens) provides a tractable FLOPS estimate~\citep{kaplan2020scaling, hoffmann2022chinchilla}. PaLM~\citep{chowdhery2022palm} established a pretraining baseline of 46--57\% MFU on TPU v4, yet RL-based post-training appears far less efficient: recent GRPO reports indicate only 10.5\% MFU on multi-GPU A100 clusters (SemiAnalysis).
+
+\subsection{Unsloth and Consumer-Grade Fine-tuning}
+
+Unsloth~\citep{unsloth2024} claims 2$\times$ speedups through kernel fusion and optimized memory access patterns, but its benchmarks are marketing-oriented without peer review. Unsloth recently introduced official AMD support in collaboration with the AMD team, with reported 2$\times$ speedups on data-center Instinct GPUs (CDNA architecture); on consumer RDNA3 hardware, the execution path relies on ROCm's HIP/Triton backends~\citep{rocm2024}. LlamaFactory~\citep{zheng2024llamafactory} provides another popular framework but its ROCm compatibility remains unverified for consumer GPUs. TRL~\citep{vonwerra2022trl} and DeepSpeed~\citep{rasley2020deepspeed} offer additional training infrastructure. To our knowledge, no academic study has rigorously characterized training efficiency on consumer AMD hardware.

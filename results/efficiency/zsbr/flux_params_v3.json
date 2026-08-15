@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "purpose": "E-H0 pool sweep (PREREGISTERED before E-H1, docs/21 §11)",
+    "timestamp": "2026-07-28T11:13:42"
+  },
+  "sweep": {
+    "criterion": "tau_net=|M|/(mu_h*51 - mu0*|D|); mu0 in [0.002,0.008]; scheduler: N-(cooldown-1)*64 >= 51",
+    "rows": [
+      {
+        "pool": 100,
+        "D_abs": 50.6,
+        "M_abs": 34.8,
+        "supply_mu0D": [
+          0.1,
+          0.4
+        ],
+        "harvest_rate": 1.37,
+        "tau_net_range": [
+          27.4,
+          36.0
+        ],
+        "scheduler_margin": -28,
+        "scheduler_ok": false,
+        "gate": "NO-GO"
+      },
+      {
+        "pool": 150,
+        "D_abs": 66.5,
+        "M_abs": 61.8,
+        "supply_mu0D": [
+          0.13,
+          0.53
+        ],
+        "harvest_rate": 1.37,
+        "tau_net_range": [
+          49.9,
+          73.6
+        ],
+        "scheduler_margin": 22,
+        "scheduler_ok": false,
+        "gate": "NO-GO"
+      },
+      {
+        "pool": 200,
+        "D_abs": 88.8,
+        "M_abs": 83.5,
+        "supply_mu0D": [
+          0.18,
+          0.71
+        ],
+        "harvest_rate": 1.37,
+        "tau_net_range": [
+          69.9,
+          126.2
+        ],
+        "scheduler_margin": 72,
+        "scheduler_ok": true,
+        "gate": "GO"
+      },
+      {
+        "pool": 250,
+        "D_abs": 115.2,
+        "M_abs": 103.7,
+        "supply_mu0D": [
+          0.23,
+          0.92
+        ],
+        "harvest_rate": 1.37,
+        "tau_net_range": [
+          90.8,
+          230.3
+        ],
+        "scheduler_margin": 122,
+        "scheduler_ok": true,
+        "gate": "GO"
+      },
+      {
+        "pool": 500,
+        "D_abs": 260.1,
+        "M_abs": 185.8,
+        "supply_mu0D": [
+          0.52,
+          2.08
+        ],
+        "harvest_rate": 1.37,
+        "tau_net_range": [
+          218.1,
+          null
+        ],
+        "scheduler_margin": 372,
+        "scheduler_ok": true,
+        "gate": "NO-GO"
+      }
+    ]
+  }
+}

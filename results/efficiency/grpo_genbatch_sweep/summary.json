@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "experiment": "GRPO generation_batch_size Scaling (real training loop, true lever)",
+    "gpu": "RX 7900 XTX (RDNA3, 960 GB/s)",
+    "model": "Qwen2.5-3B-Instruct",
+    "framework": "hf",
+    "G_fixed": 2,
+    "grad_accum": 1,
+    "max_steps": 20,
+    "max_completion_length": 256,
+    "note": "generation_batch_size = per_device_batch × grad_accum; 此处 grad_accum=1 故 = per_device_batch"
+  },
+  "results": [
+    {
+      "gen_batch": 2,
+      "tokens_per_s": 147.6,
+      "mfu_practical_pct": 2.69,
+      "s_per_step": 72.931,
+      "peak_mem_gb": 7.48,
+      "valid_steps": 3,
+      "gpu_busy_mean": 98.7,
+      "tps_vs_gb2": 1.0
+    },
+    {
+      "gen_batch": 8,
+      "tokens_per_s": 427.7,
+      "mfu_practical_pct": 7.8,
+      "s_per_step": 82.837,
+      "peak_mem_gb": 10.48,
+      "valid_steps": 4,
+      "gpu_busy_mean": 98.8,
+      "tps_vs_gb2": 2.9
+    },
+    {
+      "gen_batch": 16,
+      "tokens_per_s": 716.2,
+      "mfu_practical_pct": 13.06,
+      "s_per_step": 100.109,
+      "peak_mem_gb": 14.5,
+      "valid_steps": 4,
+      "gpu_busy_mean": 99.1,
+      "tps_vs_gb2": 4.85
+    },
+    {
+      "gen_batch": 32,
+      "error": "returncode=1"
+    }
+  ],
+  "verdict": "✅ 杠杆迁移成立: gen_batch 2→16 吞吐 147.6→716.2 tok/s (4.85×) → batch_throughput 的算术强度杠杆在真实 GRPO 训练复现"
+}

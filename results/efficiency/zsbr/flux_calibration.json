@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "purpose": "E-F0 flux calibration + PREREGISTERED F-b extrapolation (written BEFORE E-F1)",
+    "timestamp": "2026-07-26T22:00:55"
+  },
+  "n_prompts_obs": 7454,
+  "rho_inversion": {
+    "grid": [
+      0.02,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.98
+    ],
+    "weights": [
+      0.2534,
+      0.1527,
+      0.0948,
+      0.0711,
+      0.0618,
+      0.0586,
+      0.0575,
+      0.0569,
+      0.0577,
+      0.0626,
+      0.073
+    ],
+    "pools_true": {
+      "D": 0.4061,
+      "M": 0.4584,
+      "S": 0.1356
+    },
+    "signal_rate_true_rho": 0.2406
+  },
+  "lambda_ms_estimate": {
+    "mu_h_per_group_obs": 0.0268,
+    "per_seed": {
+      "s42": {
+        "n_multi": 528,
+        "n_mixed_multi": 522,
+        "n_learned_proxy": 83,
+        "mu_h_per_group": 0.026
+      },
+      "s123": {
+        "n_multi": 514,
+        "n_mixed_multi": 512,
+        "n_learned_proxy": 93,
+        "mu_h_per_group": 0.0294
+      },
+      "s7": {
+        "n_multi": 514,
+        "n_mixed_multi": 511,
+        "n_learned_proxy": 78,
+        "mu_h_per_group": 0.0249
+      }
+    }
+  },
+  "tau_cycles": 2497.5,
+  "tau_verdict": "τ≥400: F-a 可能不可判定(诚实条款, docs/21 §6)",
+  "preregistered_fzs_curve_v1_500": {
+    "mu0_assumed": 0.0005,
+    "fzs_at": {
+      "50": 0.59,
+      "100": 0.59,
+      "200": 0.59,
+      "300": 0.59,
+      "400": 0.59,
+      "500": 0.59
+    },
+    "fzs_seg_late_300_500_pred": 0.59,
+    "hit_criteria": "F-b: 与实测逐 log 点均方误差 <5pp"
+  }
+}

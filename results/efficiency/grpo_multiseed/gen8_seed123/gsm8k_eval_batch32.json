@@ -1,0 +1,8 @@
+{
+  "adapter": "/home/luischen/文档/post-training-01/results/efficiency/grpo_multiseed/gen8_seed123/final_adapter",
+  "n": 500,
+  "correct": 157,
+  "accuracy": 0.314,
+  "elapsed_s": 284.1,
+  "batch_size": 32
+}
